@@ -1,3 +1,5 @@
+var flipped = false;
+
 $(document).ready(function(){
     var flashcardTemplate = '\
     <div class="zingerStage">\
@@ -48,6 +50,7 @@ $(document).ready(function(){
             return;
         }
 
+        flipped = !flipped;
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
@@ -62,5 +65,11 @@ chrome.runtime.onMessage.addListener(function(msg, sender) {
     $("#zingerExampleTxt").html(msg.context);
     $("#zingerCardMeaning").show(); // If user clicked example previously
     $("#zingerExampleTxt").hide();  // Don't show example initially
+
+    if (flipped) {
+        jQuery(".zingerFlashcard")[0].click();
+        flipped = false;
+    }
+
     $(".zingerStage").show();
 });
