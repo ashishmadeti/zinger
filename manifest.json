@@ -18,7 +18,9 @@
                 "media/js/jquery-ui.min.js",
                 "media/js/jquery.qtip.min.js",
                 "media/js/config.js",
-                "media/js/dictionary.js"
+                "media/js/dictionary.js",
+                "media/js/backend.js",
+                "media/js/chromeStorage.js"
             ]
         }
     ],
@@ -39,6 +41,7 @@
     },
 
     "permissions": [
-        "tabs"
+        "tabs",
+        "storage"
     ]
 }
