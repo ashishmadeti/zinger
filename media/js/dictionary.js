@@ -1,6 +1,6 @@
 var apiBaseUrl = "https://api.wordnik.com/v4";
 var meaningDisplayFlag = false;
-var word, meaning;
+var meaning, word, context;
 
 $(document).ready(function () {
 
@@ -8,7 +8,8 @@ $(document).ready(function () {
     // $('body').append(checkbox);
 
     $(document).dblclick(function(e){
-        word = window.getSelection().toString();
+        var wordObject = window.getSelection();
+        word = wordObject.toString();
         var result = word.split(/[\n\r\s]+/);
 
         // To disable multiple words selection
@@ -22,6 +23,8 @@ $(document).ready(function () {
             changeQtipText(document, meaning);
             meaningDisplayFlag = true;
         });
+        context = getContext(wordObject);
+        console.log(context);
     });
 
     $(document).on('mousedown', function(){
