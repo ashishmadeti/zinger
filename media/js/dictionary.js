@@ -31,7 +31,7 @@ $(document).ready(function () {
         if (!meaningDisplayFlag) {
             return;
         }
-
+        saveWord(word, meaning, context);
         // alert("Storing to database....");
         meaningDisplayFlag = false;
     });
