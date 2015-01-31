@@ -1,4 +1,5 @@
 var flipped = false;
+var dragged = false;
 
 $(document).ready(function(){
     var backend = chrome.runtime.connect({name: "connectionToBackend"});
@@ -12,9 +13,11 @@ $(document).ready(function(){
                 <p id="zingerCardMeaning"></p>\
                 <p id="zingerExampleTxt" style="display:none;"></p>\
                 <input type="button" value="Example" id="zingerExampleToggle"/>\
-                <p>Did you know this word?</p>\
-                <input type="button" value="Yes" id="zingerYes"/>\
-                <input type="button" value="No" id="zingerNo"/>\
+                <div class="zingerRemember">\
+                    <p>Did you remember?</p>\
+                    <input type="button" value="Yes" id="zingerYes"/>\
+                    <input type="button" value="No" id="zingerNo"/>\
+                </div>\
             </div>\
         </div>\
     </div>';
@@ -46,16 +49,27 @@ $(document).ready(function(){
      });
 
     $('.zingerFlashcard').on('click', function(e) {
+        if (dragged) {
+            dragged = false;
+            return false;
+        }
+
         if ($(e.target).is('#zingerExampleToggle')) {
             // Don't flip card on example button click
-            return;
+            // or card is dragged
+            return false;
         }
 
         flipped = !flipped;
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
-    $(".zingerStage").draggable();
+    $(".zingerStage").draggable({containment: "body"});
+
+    $('.zingerStage').on('drag', function(e){
+        dragged = true;
+    });
+
 });
 
 // To listen to new word event
@@ -76,6 +90,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender) {
         if (flipped) {
             jQuery(".zingerFlashcard")[0].click();
             flipped = false;
+            dragged = false;
         }
 
         $(".zingerStage").show();
