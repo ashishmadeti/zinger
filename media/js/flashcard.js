@@ -1,6 +1,7 @@
 var flipped = false;
 
 $(document).ready(function(){
+    var backend = chrome.runtime.connect({name: "connectionToBackend"});
     var flashcardTemplate = '\
     <div class="zingerStage">\
         <div class="zingerFlashcard">\
@@ -21,12 +22,12 @@ $(document).ready(function(){
     $('body').prepend(flashcardTemplate);
 
     $('#zingerYes').click(function(e){
-        alert("Yes");
+        backend.postMessage({type: "click", word: $("#zingerCardWord").val(), knew: true});
         $(".zingerStage").hide();
     });
 
     $('#zingerNo').click(function(e){
-        alert("No!");
+        backend.postMessage({type: "click", word: $("#zingerCardWord").val(), knew: false});
         $(".zingerStage").hide();
     });
 

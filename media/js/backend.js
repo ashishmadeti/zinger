@@ -175,13 +175,66 @@ function shuffle(array) {
     return array;
 }
 
+//New value according to the old value and the user knew the word or not
+function getNewValue(oldVal, knew) {
+    if (knew) {
+        switch (oldVal) {
+            case -1: return 1;
+            case 0:
+            case 1:
+            case 2:
+            case 3: return oldVal + 1;
+            case 4: return oldVal;
+        }
+    } else {
+        return 0;
+    }
+}
+
+//Handle click of yes or no button on flash card
+function click(word, knew) {
+    var oldVal, newVal;
+    for (var i = 0; i < newWords.length; i++) {
+        if (newWords[i].word === word) {
+            oldVal = newWords[i].properties.count;
+            newVal = getNewValue(oldVal, knew);
+            if (newVal != oldVal) {
+                newWords[i].properties.count = newVal;
+                storeInChrome(newWords[i]);
+            }
+        }
+    }
+    for (var i = 0; i < learningWords.length; i++) {
+        if (learningWords[i].word === word) {
+            oldVal = learningWords[i].properties.count;
+            newVal = getNewValue(oldVal, knew);
+            if (newVal != oldVal) {
+                learningWords[i].properties.count = newVal;
+                storeInChrome(learningWords[i]);
+            }
+        }
+    }
+    for (var i = 0; i < masteredWords.length; i++) {
+        if (masteredWords[i].word === word) {
+            oldVal = masteredWords[i].properties.count;
+            newVal = getNewValue(oldVal, knew);
+            if (newVal != oldVal) {
+                masteredWords[i].properties.count = newVal;
+                storeInChrome(masteredWords[i]);
+            }
+        }
+    }
+}
+
 //Call showFlashCard() at specific intervals
 setInterval(showFlashCard, interval);
 
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
-        if(msg.type === "saveWord") {
+        if (msg.type === "saveWord") {
             saveWord(msg.word, msg.meaning, msg.context);
+        } else if (msg.type === "click") {
+            click(msg.word, msg.knew);
         }
     });
 });
