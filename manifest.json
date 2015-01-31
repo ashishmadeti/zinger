@@ -16,7 +16,7 @@
             "js": [
                 "media/js/jquery-2.1.1.min.js",
                 "media/js/jquery-ui.min.js",
-                "media/js/jquery.qtip.min.js",
+                "media/js/jquery.qtip.min.js"
             ]
         }
     ],
@@ -36,6 +36,6 @@
     },
 
     "permissions": [
-        "activeTab",    // To get the address URL
+        "activeTab"    // To get the address URL
     ]
 }
