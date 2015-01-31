@@ -42,9 +42,11 @@
 .zingerFront p {
   margin-top: 20%;
   font-size: 3em;
+  text-align: center;
 }
 
 .zingerBack p {
   margin-top: 10%;
   font-size: 1em;
+  text-align: center;
 }
