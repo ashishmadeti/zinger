@@ -7,6 +7,9 @@ var masteredWords = [];
 
 //Save a new word
 function saveWord(word, meaning, context) {
+    if(existsInDatabase(word)) {
+        return;
+    }
     var properties = {};
     properties.meaning = meaning;
     properties.context = context;
@@ -17,9 +20,7 @@ function saveWord(word, meaning, context) {
     newWord.properties = properties;
     newWords.push(newWord);
 
-    if(!existsInDatabase(newWord.word)) {
-        storeInChrome(newWord);
-    }
+    storeInChrome(newWord);
 }
 
 //Check if the word already exists in the database
