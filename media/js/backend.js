@@ -79,6 +79,9 @@ function fetchAllWordsFromChrome() {
             }
             console.debug(words[i]);
         }
+        shuffle(newWords);
+        shuffle(learningWords);
+        shuffle(masteredWords);
     });
 }
 
