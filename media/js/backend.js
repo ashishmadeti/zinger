@@ -1,8 +1,8 @@
 //"New" category words
 var newWords = [];
-//"Learning category words
+//"Learning" category words
 var learningWords = [];
-//"Mastered category words
+//"Mastered" category words
 var masteredWords = [];
 
 //Save a new word
@@ -17,5 +17,27 @@ function saveWord(word, meaning, context) {
     newWord.properties = properties;
     newWords.push(newWord);
 
-    storeInChrome(newWord);
+    if(!existsInDatabase(newWord.word)) {
+        storeInChrome(newWord);
+    }
+}
+
+//Check if the word already exists in the database
+function existsInDatabase(word) {
+    for (var i = 0; i < newWords.length; i++) {
+        if (newWords[i].word === word) {
+            return true;
+        }
+    }
+    for (var i = 0; i < learningWords.length; i++) {
+        if (learningWords[i].word === word) {
+            return true;
+        }
+    }
+    for (var i = 0; i < masteredWords.length; i++) {
+        if (masteredWords[i].word === word) {
+            return true;
+        }
+    }
+    return false;
 }
