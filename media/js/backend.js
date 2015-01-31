@@ -11,7 +11,7 @@ var masteredWords = [];
 var currentMasteredWordIndex = 0;
 
 //Interval between two consecutive card flashes (in milliseconds)
-var interval = 0.25 * 60 * 1000
+var interval = 0.25 * 60 * 1000;
 
 //Initially fetch all words from storage
 fetchAllWordsFromChrome();
