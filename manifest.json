@@ -5,6 +5,12 @@
     "description": "Learn vocabulary with bare minimum effort",
     "version": "0.0.1",
 
+    "background": {
+        "scripts": [
+            "media/js/backend.js"
+        ]
+    },
+
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
@@ -18,8 +24,6 @@
                 "media/js/jquery-ui.min.js",
                 "media/js/jquery.qtip.min.js",
                 "media/js/config.js",
-                "media/js/backend.js",
-                "media/js/chromeStorage.js",
                 "media/js/getContext.js",
                 "media/js/dictionary.js"
             ]

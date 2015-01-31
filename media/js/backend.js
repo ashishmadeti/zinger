@@ -5,6 +5,13 @@ var learningWords = [];
 //"Mastered" category words
 var masteredWords = [];
 
+//Initially fetch all words from storage
+fetchAllWordsFromChrome();
+
+// //For access to background arrays
+// var background = chrome.extension.getBackgroundPage();
+// console.debug(background);
+
 //Save a new word
 function saveWord(word, meaning, context) {
     if(existsInDatabase(word)) {
@@ -41,4 +48,32 @@ function existsInDatabase(word) {
         }
     }
     return false;
+}
+
+function storeInChrome(newWord) {
+    //convert newWord into a key-value pair
+    var w = {};
+    w[newWord.word] = newWord.properties;
+    chrome.storage.local.set(w, function() {
+        console.debug("Saved word ", newWord.word);
+    });
+}
+
+function fetchAllWordsFromChrome() {
+    chrome.storage.local.get(null, function(wordObjects) {
+        var words = Object.keys(wordObjects);
+        for (var i = 0; i < words.length; i++) {
+            var wordToAdd = {};
+            wordToAdd.word = words[i];
+            wordToAdd.properties = wordObjects[words[i]];
+            if (wordToAdd.properties.count < 0) {
+                newWords.push(wordToAdd);
+            } else if (wordToAdd.properties.count < 4) {
+                learningWords.push(wordToAdd);
+            } else {
+                masteredWords.push(wordToAdd);
+            }
+            console.debug(words[i]);
+        }
+    });
 }
