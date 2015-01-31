@@ -4,9 +4,18 @@ $(document).ready(function(){
     // get selected text
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendRequest(tab.id, {method: 'getSelection'}, function (response) {
-            alert(response.data);
+            var word = response.data;
+
+            if(/^[a-zA-Z0-9- ]+$/.test(word) == false) {
+                $("#zingerMeaning").html('Please make a selection...');
+                return;
+            }
+
+            fetchMeaning(word.toLowerCase(), function(meaning){
+                // alert(meaning);
+                $("#zingerMeaning").html('<h2>' + word + '</h2>');
+                $("#zingerMeaning").append('<p>' + meaning + '</p>');
+            });
         });
     });
-
-    testFunction();
 });

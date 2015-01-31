@@ -31,8 +31,8 @@ $(document).ready(function () {
         if (!meaningDisplayFlag) {
             return;
         }
+
         saveWord(word, meaning, context);
-        // alert("Storing to database....");
         meaningDisplayFlag = false;
     });
 });
@@ -97,7 +97,8 @@ function fetchMeaning(word, callback) {
         data: data,
         dataType: "json",
         success: function (response) {
-            if (response.length == 0) {
+            console.log(response);
+            if (response.length == 0 || response == null) {
                 callback("No meaning found...!");
             } else {
                 callback(response[0].text);
