@@ -33,7 +33,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (meaning === noMeaningFoundError) {
+        if (meaning === noMeaningFoundError || meaning == otherError) {
             // Don't save the word
             return;
         }

@@ -1,6 +1,7 @@
 var backend = chrome.runtime.connect({name: "connectionToBackend"});
 // FIXME: Maintain only single copy of error messages
 var noMeaningFoundError = "No meaning found";
+var otherError = "Some error occurred. Please try later";
 
 $(document).ready(function(){
 
@@ -20,7 +21,7 @@ $(document).ready(function(){
                 $("#zingerMeaning").html('<h2>' + word + '</h2>');
                 $("#zingerMeaning").append('<p>' + meaning + '</p>');
 
-                if (meaning == noMeaningFoundError) {
+                if (meaning == noMeaningFoundError || meaning == otherError) {
                     return;
                 }
 
