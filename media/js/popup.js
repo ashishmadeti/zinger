@@ -6,7 +6,7 @@ $(document).ready(function(){
         chrome.tabs.sendMessage(tab.id, {method: 'getSelection'}, function (response) {
             var word = response.data;
 
-            if(/^[a-zA-Z0-9- ]+$/.test(word) == false) {
+            if(/^[a-zA-Z ]+$/.test(word) == false) {
                 $("#zingerMeaning").html('Please make a selection...');
                 return;
             }
