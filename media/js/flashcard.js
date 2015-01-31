@@ -22,12 +22,12 @@ $(document).ready(function(){
     $('body').prepend(flashcardTemplate);
 
     $('#zingerYes').click(function(e){
-        backend.postMessage({type: "click", word: $("#zingerCardWord").val(), knew: true});
+        backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: true});
         $(".zingerStage").hide();
     });
 
     $('#zingerNo').click(function(e){
-        backend.postMessage({type: "click", word: $("#zingerCardWord").val(), knew: false});
+        backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: false});
         $(".zingerStage").hide();
     });
 
