@@ -1,7 +1,6 @@
+var buttonClickedFlag = false;
+
 $(document).ready(function(){
-
-    var buttonClickedFlag = false;
-
     var flashcardTemplate = '\
     <div class="zingerStage">\
         <div class="zingerFlashcard">\
@@ -20,27 +19,28 @@ $(document).ready(function(){
     $('body').prepend(flashcardTemplate);
 
     $('#zingerYes').click(function(e){
-        buttonClickedFlag = true;
         alert("Yes");
         $(".zingerStage").hide();
     });
 
     $('#zingerNo').click(function(e){
-        buttonClickedFlag = true;
         alert("No!");
         $(".zingerStage").hide();
-        buttonClickedFlag = true;
     });
 
     $('.zingerFlashcard').on('click', function() {
-        if (buttonClickedFlag) {
-            return;
-        }
-
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
+
+    $(".zingerStage").draggable();
 });
 
+// To listen to new word event
 chrome.runtime.onMessage.addListener(function(msg, sender) {
     //use msg.word, msg.meaning and msg.context
+
+    $("#zingerCardWord").html(msg.word);
+    $("#zingerCardMeaning").html(msg.meaning);
+
+    $(".zingerStage").show();
 });
