@@ -25,7 +25,8 @@
                 "media/js/jquery.qtip.min.js",
                 "media/js/config.js",
                 "media/js/getContext.js",
-                "media/js/dictionary.js"
+                "media/js/dictionary.js",
+                "media/js/flashcard.js"
             ]
         }
     ],
