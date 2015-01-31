@@ -10,7 +10,7 @@ var currentLearningWordIndex = 0;
 var masteredWords = [];
 var currentMasteredWordIndex = 0;
 
-chrome.storage.local.clear();
+// chrome.storage.local.clear();
 
 //Interval between two consecutive card flashes (in milliseconds)
 var interval = 0.25 * 60 * 1000

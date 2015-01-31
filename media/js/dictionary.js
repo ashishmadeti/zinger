@@ -2,6 +2,8 @@ var apiBaseUrl = "https://api.wordnik.com/v4";
 var meaningDisplayFlag = false;
 var meaning, word, context;
 var backend = chrome.runtime.connect({name: "connectionToBackend"});
+var noMeaningFoundError = "No meaning found";
+var otherError = "Some error occurred. Please try later";
 
 $(document).ready(function () {
     $(document).dblclick(function(e){
@@ -28,6 +30,11 @@ $(document).ready(function () {
 
     $(document).on('mousedown', function(){
         if (!meaningDisplayFlag) {
+            return;
+        }
+
+        if (meaning === noMeaningFoundError) {
+            // Don't save the word
             return;
         }
 
@@ -62,7 +69,6 @@ function showQtip(selector, e) {
 
         hide: {
             event: 'mousedown'
-            // event: 'unfocus'
         },
 
         events: {
@@ -97,7 +103,7 @@ function fetchMeaning(word, callback) {
         dataType: "json",
         success: function (response) {
             if (response.length == 0 || response == null) {
-                callback("No meaning found...!");
+                callback(noMeaningFoundError);
             } else {
                 callback(response[0].text);
             }
@@ -105,7 +111,7 @@ function fetchMeaning(word, callback) {
 
         statusCode: {
             404: function() {
-                callback("Some error occurred. Please try later");
+                callback(otherError);
             }
         }
     });

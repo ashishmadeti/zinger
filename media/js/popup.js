@@ -1,4 +1,6 @@
 var backend = chrome.runtime.connect({name: "connectionToBackend"});
+// FIXME: Maintain only single copy of error messages
+var noMeaningFoundError = "No meaning found";
 
 $(document).ready(function(){
 
@@ -17,9 +19,14 @@ $(document).ready(function(){
             fetchMeaning(word.toLowerCase(), function(meaning){
                 $("#zingerMeaning").html('<h2>' + word + '</h2>');
                 $("#zingerMeaning").append('<p>' + meaning + '</p>');
+
+                if (meaning == noMeaningFoundError) {
+                    return;
+                }
+
+                backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
             });
 
-            backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
         });
     });
 });
