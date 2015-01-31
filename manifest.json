@@ -36,6 +36,7 @@
     },
 
     "icons": {
+        // Icon credits: The Noun Project
         "48": "icon.png",
         "128": "icon.png"
     },

@@ -7,4 +7,6 @@ $(document).ready(function(){
             alert(response.data);
         });
     });
+
+    testFunction();
 });

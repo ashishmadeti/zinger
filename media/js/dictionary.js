@@ -1,5 +1,6 @@
 var apiBaseUrl = "https://api.wordnik.com/v4";
 var meaningDisplayFlag = false;
+var word, meaning;
 
 $(document).ready(function () {
 
@@ -7,7 +8,7 @@ $(document).ready(function () {
     // $('body').append(checkbox);
 
     $(document).dblclick(function(e){
-        var word = window.getSelection().toString();
+        word = window.getSelection().toString();
         var result = word.split(/[\n\r\s]+/);
 
         // To disable multiple words selection
@@ -16,8 +17,11 @@ $(document).ready(function () {
             return;
         }
 
-        var meaning = fetchMeaning(word.toLowerCase());
-        showQtip(this, e);
+        showQtip(document, e);
+        fetchMeaning(word.toLowerCase(), function(meaning){
+            changeQtipText(document, meaning);
+            meaningDisplayFlag = true;
+        });
     });
 
     $(document).on('mousedown', function(){
@@ -36,6 +40,7 @@ function showQtip(selector, e) {
             text: "Searching for meaning....."
             // text: $('#zingerHiddenDiv')
         },
+
         position: {
             target: [e.pageX, e.pageY],
             viewport: $(window),
@@ -44,16 +49,20 @@ function showQtip(selector, e) {
                 mouse: false
             }
         },
+
         show: {
             ready: true
         },
+
         style: {
             width: "250px"
         },
+
         hide: {
             event: 'mousedown'
             // event: 'unfocus'
         },
+
         events: {
             hide: function(event, api) {
                 api.destroy();
@@ -64,7 +73,12 @@ function showQtip(selector, e) {
     meaningDisplayFlag = true;
 }
 
-function fetchMeaning(word) {
+
+function changeQtipText(selector, newText) {
+    $(selector).qtip('option', 'content.text', newText);
+}
+
+function fetchMeaning(word, callback) {
     var requestUrl = apiBaseUrl + "/word.json/" + word + "/definitions?";
     var data = {
         "limit": 1,
@@ -80,17 +94,16 @@ function fetchMeaning(word) {
         data: data,
         dataType: "json",
         success: function (response) {
-            console.log(response);
             if (response.length == 0) {
-                $(document).qtip('option', 'content.text', 'No meaning found...');
+                callback("No meaning found...!");
             } else {
-                $(document).qtip('option', 'content.text', response[0].text);
+                callback(response[0].text);
             }
         },
 
         statusCode: {
             404: function() {
-                $(document).qtip('option', 'content.text', "Some error occ. Please try later");
+                callback("Some error occurred. Please try later");
             }
         }
     });
@@ -98,10 +111,11 @@ function fetchMeaning(word) {
 
 // Listen for incoming requests from browser_action script
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-    if (request.method == "getSelection")
-      sendResponse({data: window.getSelection().toString()});
-    else
-      sendResponse({}); // snub them.
+    if (request.method == "getSelection") {
+        sendResponse({data: window.getSelection().toString()});
+    } else {
+        sendResponse({}); // snub them.
+    }
 });
 
 // Problems:
