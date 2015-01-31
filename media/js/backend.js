@@ -90,16 +90,16 @@ function chooseNextWord() {
 
     switch (diceRoll) {
         case 9: if (masteredWords.length) {
-                    (currentMasteredWordIndex < masteredWords.length) ?
-                        return masteredWords[currentMasteredWordIndex] :
-                        return masteredWords[currentMasteredWordIndex = 0];
+                    return (currentMasteredWordIndex < masteredWords.length) ?
+                        masteredWords[currentMasteredWordIndex++] :
+                        masteredWords[currentMasteredWordIndex = 0];
                 }
         case 8:
         case 7:
         case 6: if (newWords.length) {
-                    (currentNewWordIndex < newWords.length) ?
-                        return newWords[currentNewWordIndex] :
-                        return newWords[currentNewWordIndex = 0];
+                    return (currentNewWordIndex < newWords.length) ?
+                        newWords[currentNewWordIndex++] :
+                        newWords[currentNewWordIndex = 0];
                 }
         case 5:
         case 4:
@@ -107,15 +107,15 @@ function chooseNextWord() {
         case 2:
         case 1:
         case 0: if (learningWords.length) {
-                    (currentLearningWordIndex < learningWords.length) ?
-                        return learningWords[currentLearningWordIndex] :
-                        return learningWords[currentLearningWordIndex = 0];
+                    return (currentLearningWordIndex < learningWords.length) ?
+                        learningWords[currentLearningWordIndex++] :
+                        learningWords[currentLearningWordIndex = 0];
                 } else if (newWords.length) {
-                    (currentNewWordIndex < newWords.length) ?
-                        return newWords[currentNewWordIndex] :
-                        return newWords[currentNewWordIndex = 0];
+                    return (currentNewWordIndex < newWords.length) ?
+                        newWords[currentNewWordIndex++] :
+                        newWords[currentNewWordIndex = 0];
                 }
-        case default: break;
+        default: break;
     }
     return false;
 }
@@ -123,14 +123,17 @@ function chooseNextWord() {
 //Send a message to the current tab, asking it to show a flashcard
 function showFlashCard() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        if (!tabs.length < 1) {
+        console.log("inside showFlashCard");
+        if (tabs.length < 1) {
             return;
         }
 
         var wordToSend = chooseNextWord();
+        console.log(wordToSend);
         if (!wordToSend) {
             return;
         }
+        console.log("sending word ", wordToSend.word);
         chrome.tabs.sendMessage(tabs[0].id, {word: wordToSend.word,
             meaning: wordToSend.properties.meaning,
             context: wordToSend.properties.context});
@@ -138,7 +141,7 @@ function showFlashCard() {
 }
 
 //Call showFlashCard() at specific intervals
-// setInterval(showFlashCard, interval);
+setInterval(showFlashCard, interval);
 
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
