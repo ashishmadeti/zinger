@@ -87,19 +87,28 @@ function fetchAllWordsFromChrome() {
 function chooseNextWord() {
     //random number between 0 to 9
     var diceRoll = Math.floor(Math.random() * 10);
+    var nextWord;
 
     switch (diceRoll) {
         case 9: if (masteredWords.length) {
-                    return (currentMasteredWordIndex < masteredWords.length) ?
-                        masteredWords[currentMasteredWordIndex++] :
-                        masteredWords[currentMasteredWordIndex = 0];
+                    if (currentMasteredWordIndex < masteredWords.length) {
+                        return masteredWords[currentMasteredWordIndex++];
+                    } else {
+                        nextWord = masteredWords[currentMasteredWordIndex = 0];
+                        shuffle(masteredWords);
+                        return nextWord;
+                    }
                 }
         case 8:
         case 7:
         case 6: if (newWords.length) {
-                    return (currentNewWordIndex < newWords.length) ?
-                        newWords[currentNewWordIndex++] :
-                        newWords[currentNewWordIndex = 0];
+                    if (currentNewWordIndex < newWords.length) {
+                        return newWords[currentNewWordIndex++];
+                    } else {
+                        nextWord = newWords[currentNewWordIndex = 0];
+                        shuffle(newWords);
+                        return nextWord;
+                    }
                 }
         case 5:
         case 4:
@@ -107,13 +116,21 @@ function chooseNextWord() {
         case 2:
         case 1:
         case 0: if (learningWords.length) {
-                    return (currentLearningWordIndex < learningWords.length) ?
-                        learningWords[currentLearningWordIndex++] :
-                        learningWords[currentLearningWordIndex = 0];
+                    if (currentLearningWordIndex < learningWords.length) {
+                        return learningWords[currentLearningWordIndex++];
+                    } else {
+                        nextWord = learningWords[currentLearningWordIndex = 0];
+                        shuffle(learningWords);
+                        return nextWord;
+                    }
                 } else if (newWords.length) {
-                    return (currentNewWordIndex < newWords.length) ?
-                        newWords[currentNewWordIndex++] :
-                        newWords[currentNewWordIndex = 0];
+                    if (currentNewWordIndex < newWords.length) {
+                        return newWords[currentNewWordIndex++];
+                    } else {
+                        nextWord = newWords[currentNewWordIndex = 0];
+                        shuffle(newWords);
+                        return nextWord;
+                    }
                 }
         default: break;
     }
@@ -136,6 +153,21 @@ function showFlashCard() {
             meaning: wordToSend.properties.meaning,
             context: wordToSend.properties.context});
     });
+}
+
+//Shuffle an array using Fisher-Yates Shuffle
+function shuffle(array) {
+    var counter = array.length, temp, index;
+    while (counter > 0) {
+        index = Math.floor(Math.random() * counter);
+        counter--;
+
+        temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
 }
 
 //Call showFlashCard() at specific intervals
