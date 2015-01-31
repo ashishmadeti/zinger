@@ -1,6 +1,7 @@
 var apiBaseUrl = "https://api.wordnik.com/v4";
 var meaningDisplayFlag = false;
 var meaning, word, context;
+var backend = chrome.runtime.connect({name: "connectionToBackend"});
 
 $(document).ready(function () {
     $(document).dblclick(function(e){
@@ -30,7 +31,7 @@ $(document).ready(function () {
             return;
         }
 
-        saveWord(word, meaning, context);
+        backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
         meaningDisplayFlag = false;
     });
 });

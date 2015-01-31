@@ -8,10 +8,6 @@ var masteredWords = [];
 //Initially fetch all words from storage
 fetchAllWordsFromChrome();
 
-// //For access to background arrays
-// var background = chrome.extension.getBackgroundPage();
-// console.debug(background);
-
 //Save a new word
 function saveWord(word, meaning, context) {
     if(existsInDatabase(word)) {
@@ -77,3 +73,11 @@ function fetchAllWordsFromChrome() {
         }
     });
 }
+
+chrome.runtime.onConnect.addListener(function(port) {
+    port.onMessage.addListener(function(msg) {
+        if(msg.type === "saveWord") {
+            saveWord(msg.word, msg.meaning, msg.context);
+        }
+    });
+});
