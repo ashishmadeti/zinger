@@ -10,10 +10,9 @@ $(document).ready(function () {
         var wordObject = window.getSelection();
         word = $.trim(wordObject.toString());
         var result = word.split(/[\n\r\s]+/);
-
         // To disable multiple words selection
         // and null selection
-        if (result.length != 1) {
+        if (result.length != 1 || word == '') {
             return;
         }
 
