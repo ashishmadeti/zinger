@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Zinger",
-    "description": "Learn vocabulary with bare minimum effort",
+    "description": "Learn vocabulary with minimum effort",
     "version": "0.0.1",
 
     "background": {
