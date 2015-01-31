@@ -3,7 +3,7 @@ $(document).ready(function(){
     // When user clicks the browser_action icon
     // get selected text
     chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {method: 'getSelection'}, function (response) {
+        chrome.tabs.sendMessage(tab.id, {method: 'getSelection'}, function (response) {
             var word = response.data;
 
             if(/^[a-zA-Z0-9- ]+$/.test(word) == false) {
