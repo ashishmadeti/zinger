@@ -70,6 +70,7 @@ function fetchAllWordsFromChrome() {
             var wordToAdd = {};
             wordToAdd.word = words[i];
             wordToAdd.properties = wordObjects[words[i]];
+            console.debug(wordToAdd);
             if (wordToAdd.properties.count < 0) {
                 newWords.push(wordToAdd);
             } else if (wordToAdd.properties.count < 4) {
@@ -77,7 +78,6 @@ function fetchAllWordsFromChrome() {
             } else {
                 masteredWords.push(wordToAdd);
             }
-            console.debug(words[i]);
         }
         shuffle(newWords);
         shuffle(learningWords);
@@ -191,35 +191,56 @@ function getNewValue(oldVal, knew) {
 }
 
 //Handle click of yes or no button on flash card
+//change category of the word accordingly
 function click(word, knew) {
+    var found = false;
     var oldVal, newVal;
-    for (var i = 0; i < newWords.length; i++) {
-        if (newWords[i].word === word) {
-            oldVal = newWords[i].properties.count;
-            newVal = getNewValue(oldVal, knew);
-            if (newVal != oldVal) {
+    var newWord;
+    if (!found) {
+        for (var i = 0; i < newWords.length; i++) {
+            if (newWords[i].word === word) {
+                found = true;
+                oldVal = newWords[i].properties.count;
+                newVal = getNewValue(oldVal, knew);
                 newWords[i].properties.count = newVal;
                 storeInChrome(newWords[i]);
+                newWord = newWords[i];
+                newWords.splice(i, 1);
+                learningWords.push(newWord);
             }
         }
     }
-    for (var i = 0; i < learningWords.length; i++) {
-        if (learningWords[i].word === word) {
-            oldVal = learningWords[i].properties.count;
-            newVal = getNewValue(oldVal, knew);
-            if (newVal != oldVal) {
-                learningWords[i].properties.count = newVal;
-                storeInChrome(learningWords[i]);
+    if (!found) {
+        for (var i = 0; i < learningWords.length; i++) {
+            if (learningWords[i].word === word) {
+                found = true;
+                oldVal = learningWords[i].properties.count;
+                newVal = getNewValue(oldVal, knew);
+                if (newVal != oldVal) {
+                    learningWords[i].properties.count = newVal;
+                    storeInChrome(learningWords[i]);
+                    if (newVal == 4) {
+                        newWord = learningWords[i];
+                        learningWords.splice(i, 1);
+                        masteredWords.push(newWord);
+                    }
+                }
             }
         }
     }
-    for (var i = 0; i < masteredWords.length; i++) {
-        if (masteredWords[i].word === word) {
-            oldVal = masteredWords[i].properties.count;
-            newVal = getNewValue(oldVal, knew);
-            if (newVal != oldVal) {
-                masteredWords[i].properties.count = newVal;
-                storeInChrome(masteredWords[i]);
+    if (!found) {
+        for (var i = 0; i < masteredWords.length; i++) {
+            if (masteredWords[i].word === word) {
+                found = true;
+                oldVal = masteredWords[i].properties.count;
+                newVal = getNewValue(oldVal, knew);
+                if (newVal != oldVal) {
+                    masteredWords[i].properties.count = newVal;
+                    storeInChrome(masteredWords[i]);
+                    newWord = masteredWords[i];
+                    masteredWords.splice(i, 1);
+                    learningWords.push(newWord);
+                }
             }
         }
     }
