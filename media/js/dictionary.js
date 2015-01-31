@@ -94,7 +94,6 @@ function fetchMeaning(word, callback) {
         data: data,
         dataType: "json",
         success: function (response) {
-            console.log(response);
             if (response.length == 0 || response == null) {
                 callback("No meaning found...!");
             } else {
