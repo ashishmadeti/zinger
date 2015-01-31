@@ -154,7 +154,8 @@ function showFlashCard() {
             return;
         }
         console.log("sending word ", wordToSend.word);
-        chrome.tabs.sendMessage(tabs[0].id, {word: wordToSend.word,
+        chrome.tabs.sendMessage(tabs[0].id, {type: "showFlashCard",
+            word: wordToSend.word,
             meaning: wordToSend.properties.meaning,
             context: wordToSend.properties.context});
     });

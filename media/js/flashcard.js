@@ -60,17 +60,19 @@ $(document).ready(function(){
 
 // To listen to new word event
 chrome.runtime.onMessage.addListener(function(msg, sender) {
-    //use msg.word, msg.meaning and msg.context
-    $("#zingerCardWord").html(msg.word);
-    $("#zingerCardMeaning").html(msg.meaning);
-    $("#zingerExampleTxt").html(msg.context);
-    $("#zingerCardMeaning").show(); // If user clicked example previously
-    $("#zingerExampleTxt").hide();  // Don't show example initially
+    if (msg.type === "showFlashCard") {
+        //use msg.word, msg.meaning and msg.context
+        $("#zingerCardWord").html(msg.word);
+        $("#zingerCardMeaning").html(msg.meaning);
+        $("#zingerExampleTxt").html(msg.context);
+        $("#zingerCardMeaning").show(); // If user clicked example previously
+        $("#zingerExampleTxt").hide();  // Don't show example initially
 
-    if (flipped) {
-        jQuery(".zingerFlashcard")[0].click();
-        flipped = false;
+        if (flipped) {
+            jQuery(".zingerFlashcard")[0].click();
+            flipped = false;
+        }
+
+        $(".zingerStage").show();
     }
-
-    $(".zingerStage").show();
 });
