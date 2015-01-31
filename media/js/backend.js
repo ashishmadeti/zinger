@@ -1,12 +1,17 @@
 //"New" category words
 var newWords = [];
+var currentNewWordIndex = 0;
+
 //"Learning" category words
 var learningWords = [];
+var currentLearningWordIndex = 0;
+
 //"Mastered" category words
 var masteredWords = [];
+var currentMasteredWordIndex = 0;
 
 //Interval between two consecutive card flashes (in milliseconds)
-var interval = 0.10 * 60 * 1000
+var interval = 0.25 * 60 * 1000
 
 //Initially fetch all words from storage
 fetchAllWordsFromChrome();
@@ -77,15 +82,63 @@ function fetchAllWordsFromChrome() {
     });
 }
 
+//Chooses and returns the next word to flash, returns false if no suitable word is available
+//Rough ratio -> 60% from learningWords[], 30% from newWords[], 10% from masteredWords[]
+function chooseNextWord() {
+    //random number between 0 to 9
+    var diceRoll = Math.floor(Math.random() * 10);
+
+    switch (diceRoll) {
+        case 9: if (masteredWords.length) {
+                    (currentMasteredWordIndex < masteredWords.length) ?
+                        return masteredWords[currentMasteredWordIndex] :
+                        return masteredWords[currentMasteredWordIndex = 0];
+                }
+        case 8:
+        case 7:
+        case 6: if (newWords.length) {
+                    (currentNewWordIndex < newWords.length) ?
+                        return newWords[currentNewWordIndex] :
+                        return newWords[currentNewWordIndex = 0];
+                }
+        case 5:
+        case 4:
+        case 3:
+        case 2:
+        case 1:
+        case 0: if (learningWords.length) {
+                    (currentLearningWordIndex < learningWords.length) ?
+                        return learningWords[currentLearningWordIndex] :
+                        return learningWords[currentLearningWordIndex = 0];
+                } else if (newWords.length) {
+                    (currentNewWordIndex < newWords.length) ?
+                        return newWords[currentNewWordIndex] :
+                        return newWords[currentNewWordIndex = 0];
+                }
+        case default: break;
+    }
+    return false;
+}
+
 //Send a message to the current tab, asking it to show a flashcard
 function showFlashCard() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {word: "test", meaning: "a procedure intended to establish the quality", context: "test your app well before production"});
+        if (!tabs.length < 1) {
+            return;
+        }
+
+        var wordToSend = chooseNextWord();
+        if (!wordToSend) {
+            return;
+        }
+        chrome.tabs.sendMessage(tabs[0].id, {word: wordToSend.word,
+            meaning: wordToSend.properties.meaning,
+            context: wordToSend.properties.context});
     });
 }
 
 //Call showFlashCard() at specific intervals
-setInterval(showFlashCard, interval);
+// setInterval(showFlashCard, interval);
 
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
