@@ -123,13 +123,11 @@ function chooseNextWord() {
 //Send a message to the current tab, asking it to show a flashcard
 function showFlashCard() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        console.log("inside showFlashCard");
         if (tabs.length < 1) {
             return;
         }
 
         var wordToSend = chooseNextWord();
-        console.log(wordToSend);
         if (!wordToSend) {
             return;
         }
