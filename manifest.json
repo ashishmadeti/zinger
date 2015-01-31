@@ -1,0 +1,41 @@
+{
+    "manifest_version": 2,
+
+    "name": "Zinger",
+    "description": "Learn vocabulary with minimum effort",
+    "version": "0.0.1",
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "css": [
+                "media/css/mystyles.css",
+                "media/css/jquery-ui.min.css",
+                "media/css/jquery.qtip.min.css"
+            ],
+            "js": [
+                "media/js/jquery-2.1.1.min.js",
+                "media/js/jquery-ui.min.js",
+                "media/js/jquery.qtip.min.js",
+            ]
+        }
+    ],
+
+    "web_accessible_resources": [
+        "media/js/jquery.qtip.min.js.map"
+    ],
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Zinger"
+    },
+
+    "icons": {
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+
+    "permissions": [
+        "activeTab",    // To get the address URL
+    ]
+}
