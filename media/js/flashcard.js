@@ -65,8 +65,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender) {
         $("#zingerCardWord").html(msg.word);
         $("#zingerCardMeaning").html(msg.meaning);
         $("#zingerExampleTxt").html(msg.context);
-        $("#zingerCardMeaning").show(); // If user clicked example previously
-        $("#zingerExampleTxt").hide();  // Don't show example initially
+
+        if ($('#zingerCardMeaning').is(':hidden')) {
+            // Show meaning and hide example
+            $('#zingerExampleTxt').hide();
+            $('#zingerCardMeaning').show();
+            $('#zingerExampleToggle').val('Example');
+        }
 
         if (flipped) {
             jQuery(".zingerFlashcard")[0].click();
