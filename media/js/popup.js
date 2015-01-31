@@ -12,7 +12,6 @@ $(document).ready(function(){
             }
 
             fetchMeaning(word.toLowerCase(), function(meaning){
-                // alert(meaning);
                 $("#zingerMeaning").html('<h2>' + word + '</h2>');
                 $("#zingerMeaning").append('<p>' + meaning + '</p>');
             });

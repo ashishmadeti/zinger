@@ -3,10 +3,6 @@ var meaningDisplayFlag = false;
 var meaning, word, context;
 
 $(document).ready(function () {
-
-    // var checkbox = "<div style='display:none !important;' id='zingerHiddenDiv'>Review later<input type='checkbox' id='zingerCheckbox' checked></div>";
-    // $('body').append(checkbox);
-
     $(document).dblclick(function(e){
         var wordObject = window.getSelection();
         word = wordObject.toString();
@@ -19,12 +15,13 @@ $(document).ready(function () {
         }
 
         showQtip(document, e);
-        fetchMeaning(word.toLowerCase(), function(meaning){
+        fetchMeaning(word.toLowerCase(), function(message){
+            meaning = message;
             changeQtipText(document, meaning);
             meaningDisplayFlag = true;
         });
+
         context = getContext(wordObject);
-        console.log(context);
     });
 
     $(document).on('mousedown', function(){
