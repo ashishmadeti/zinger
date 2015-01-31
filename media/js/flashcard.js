@@ -6,7 +6,7 @@ $(document).ready(function(){
     <div class="zingerStage">\
         <div class="zingerFlashcard">\
             <div class="zingerFront">\
-                <p id="zingerCardWord"></p>\
+                <p id="zingerCardWord">Lol</p>\
             </div>\
             <div class="zingerBack">\
                 <p id="zingerCardMeaning"></p>\
