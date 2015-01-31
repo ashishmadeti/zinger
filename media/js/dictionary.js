@@ -22,6 +22,7 @@ $(document).ready(function () {
         });
 
         context = getContext(wordObject);
+        console.log(context);
     });
 
     $(document).on('mousedown', function(){

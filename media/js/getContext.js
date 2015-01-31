@@ -6,7 +6,7 @@ function getContext(wordSelection){
     // If only word in the tag like in case of bold
     if (paragraphText.split(" ").length == 1)
     {
-        sentences = parentParagraph.split(". ");
+        sentences = parentNodeText.split(". ");
     }
     else{
         sentences = paragraphText.split(". ");
