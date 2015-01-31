@@ -37,6 +37,7 @@
   position: absolute;
   text-align: center;
   -webkit-backface-visibility: hidden;
+  overflow-y: auto;
 }
 
 .zingerFront p {
