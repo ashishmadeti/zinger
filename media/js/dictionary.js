@@ -6,7 +6,7 @@ var backend = chrome.runtime.connect({name: "connectionToBackend"});
 $(document).ready(function () {
     $(document).dblclick(function(e){
         var wordObject = window.getSelection();
-        word = wordObject.toString();
+        word = $.trim(wordObject.toString());
         var result = word.split(/[\n\r\s]+/);
 
         // To disable multiple words selection
