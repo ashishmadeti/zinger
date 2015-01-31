@@ -114,7 +114,7 @@ function fetchMeaning(word, callback) {
 // Listen for incoming requests from browser_action script
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getSelection") {
-        sendResponse({data: window.getSelection().toString()});
+        sendResponse({data: window.getSelection().toString(), context:getContext(window.getSelection())});
     } else {
         sendResponse({}); // snub them.
     }
