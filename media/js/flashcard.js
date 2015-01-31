@@ -40,3 +40,7 @@ $(document).ready(function(){
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 });
+
+chrome.runtime.onMessage.addListener(function(msg, sender) {
+    //use msg.word, msg.meaning and msg.context
+});
