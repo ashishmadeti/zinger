@@ -31,7 +31,7 @@
 }
 
 .zingerFront, .zingerBack {
-  background-color: rgba(255, 255, 168, 0.7);
+  background-color: rgba(255, 255, 168, 0.75);
   height: 200px;
   width: 336px;
   position: absolute;
