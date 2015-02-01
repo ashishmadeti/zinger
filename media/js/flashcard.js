@@ -1,7 +1,7 @@
 var flipped = false;
 var dragged = false;
 
-$(document).ready(function(){
+$(document).ready(function() {
     var backend = chrome.runtime.connect({name: "connectionToBackend"});
     var flashcardTemplate = '\
     <div class="zingerStage">\
@@ -24,17 +24,17 @@ $(document).ready(function(){
 
     $('body').prepend(flashcardTemplate);
 
-    $('#zingerYes').click(function(e){
+    $('#zingerYes').click(function(e) {
         backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: true});
         $(".zingerStage").hide();
     });
 
-    $('#zingerNo').click(function(e){
+    $('#zingerNo').click(function(e) {
         backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: false});
         $(".zingerStage").hide();
     });
 
-    $('#zingerExampleToggle').click(function(){
+    $('#zingerExampleToggle').click(function() {
         if ($('#zingerExampleTxt').is(':hidden')) {
             // Show example and hide meaning
             $('#zingerExampleTxt').show();
@@ -66,7 +66,7 @@ $(document).ready(function(){
 
     $(".zingerStage").draggable({containment: "body"});
 
-    $('.zingerStage').on('drag', function(e){
+    $('.zingerStage').on('drag', function(e) {
         dragged = true;
     });
 

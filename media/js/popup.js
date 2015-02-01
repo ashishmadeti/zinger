@@ -9,7 +9,7 @@ $(document).ready(function(){
     $("#zingerFreqSlider").slider({
         min: 1,
         max: 30,
-        animate: "slow",
+        animate: "fast",
         orientation: "horizontal",
         change: function(event, ui) {
             var val = parseInt(ui.value) * 60 * 1000;
@@ -17,8 +17,12 @@ $(document).ready(function(){
         }
     });
 
-    chrome.storage.local.get({"m_slider"}, function(defaultSliderValue){
-        $("#zingerFreqSlider").slider({value: defaultSliderValue["m_slider"]});
+    backend.postMessage({type: "getInterval"});
+    backend.onMessage.addListener(function(msg) {
+        if (msg.type === "getIntervalReply") {
+            console.log(parseInt(msg.value));
+            $("#zingerFreqSlider").slider("value", parseInt(msg.value) / (60 * 1000));
+        }
     });
 
     // When user clicks the browser_action icon
