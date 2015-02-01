@@ -71,6 +71,8 @@ function fetchAllWordsFromChrome() {
         for (var i = 0; i < words.length; i++) {
             if (words[i] === intervalPropertyName) {
                 interval = wordObjects[intervalPropertyName];
+                console.debug(interval);
+                continue;
             }
             var wordToAdd = {};
             wordToAdd.word = words[i];
@@ -251,16 +253,20 @@ function click(word, knew) {
     }
 }
 
+//Call showFlashCard() at specific intervals
+var timerVal = setInterval(showFlashCard, interval);
+
 //Update interval, accepts new value in milliseconds
 function updateInterval(newVal) {
     interval = newVal;
     var newInterval = {};
-    newInterval.intervalPropertyName = newVal;
-    chrome.storage.local.set(newInterval);
+    newInterval[intervalPropertyName] = newVal;
+    chrome.storage.local.set(newInterval, function() {
+        console.debug("Saved word ", intervalPropertyName);
+    });
+    clearInterval(timerVal);
+    timerVal = setInterval(showFlashCard, interval);
 }
-
-//Call showFlashCard() at specific intervals
-var timerVal = setInterval(showFlashCard, interval);
 
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
@@ -277,8 +283,6 @@ chrome.runtime.onConnect.addListener(function(port) {
 //Initially set interval to 10 minutes
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason === "install") {
-        clearInterval(timerVal);
         updateInterval(10 * 60 * 1000);
-        setInterval(showFlashCard, interval);
     }
 });
