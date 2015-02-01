@@ -12,7 +12,7 @@ $(document).ready(function(){
         animate: "fast",
         orientation: "horizontal",
         change: function(event, ui) {
-            var val = parseInt(ui.value) * 60 * 1000;
+            var val = parseInt(ui.value) * 1000;
             backend.postMessage({type: "updateInterval", value: val});
         }
     });
@@ -21,7 +21,7 @@ $(document).ready(function(){
     backend.onMessage.addListener(function(msg) {
         if (msg.type === "getIntervalReply") {
             console.log(parseInt(msg.value));
-            $("#zingerFreqSlider").slider("value", parseInt(msg.value) / (60 * 1000));
+            $("#zingerFreqSlider").slider("value", parseInt(msg.value) / 1000);
         }
     });
 
