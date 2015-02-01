@@ -29,12 +29,16 @@ $(document).ready(function(){
     // get selected text
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendMessage(tab.id, {method: 'getSelection'}, function (response) {
+            if (!response || !response.data) {
+                return false;
+            }
+
             var word = response.data;
             var context = response.context;
 
             if(/^[a-zA-Z ]+$/.test(word) == false) {
                 $("#zingerMeaning").html('Please make a valid selection ...');
-                return;
+                return false;
             }
 
             fetchMeaning(word.toLowerCase(), function(meaning){
@@ -42,7 +46,7 @@ $(document).ready(function(){
                 $("#zingerMeaning").append('<p>' + meaning + '</p>');
 
                 if (meaning == noMeaningFoundError || meaning == otherError) {
-                    return;
+                    return false;
                 }
 
                 backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
