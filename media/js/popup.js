@@ -33,7 +33,7 @@ $(document).ready(function(){
             var context = response.context;
 
             if(/^[a-zA-Z ]+$/.test(word) == false) {
-                $("#zingerMeaning").html('Please make a selection...');
+                $("#zingerMeaning").html('Please make a valid selection ...');
                 return;
             }
 
