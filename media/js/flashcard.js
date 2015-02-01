@@ -64,7 +64,7 @@ $(document).ready(function() {
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
-    $(".zingerStage").draggable({containment: "body"});
+    $(".zingerStage").draggable({containment: "html"});
 
     $('.zingerStage').on('drag', function(e) {
         dragged = true;
