@@ -11,7 +11,8 @@ var masteredWords = [];
 var currentMasteredWordIndex = 0;
 
 //Interval between two consecutive card flashes (in milliseconds)
-var interval = 0.25 * 60 * 1000;
+var interval;
+var intervalPropertyName = "m_interval";
 
 //Initially fetch all words from storage
 fetchAllWordsFromChrome();
@@ -63,10 +64,14 @@ function storeInChrome(newWord) {
     });
 }
 
+//Load all words from chrome storage into arrays
 function fetchAllWordsFromChrome() {
     chrome.storage.local.get(null, function(wordObjects) {
         var words = Object.keys(wordObjects);
         for (var i = 0; i < words.length; i++) {
+            if (words[i] === intervalPropertyName) {
+                interval = wordObjects[intervalPropertyName];
+            }
             var wordToAdd = {};
             wordToAdd.word = words[i];
             wordToAdd.properties = wordObjects[words[i]];
@@ -246,8 +251,16 @@ function click(word, knew) {
     }
 }
 
+//Update interval, accepts new value in milliseconds
+function updateInterval(newVal) {
+    interval = newVal;
+    var newInterval = {};
+    newInterval.intervalPropertyName = newVal;
+    chrome.storage.local.set(newInterval);
+}
+
 //Call showFlashCard() at specific intervals
-setInterval(showFlashCard, interval);
+var timerVal = setInterval(showFlashCard, interval);
 
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
@@ -255,6 +268,17 @@ chrome.runtime.onConnect.addListener(function(port) {
             saveWord(msg.word, msg.meaning, msg.context);
         } else if (msg.type === "click") {
             click(msg.word, msg.knew);
+        } else if (msg.type === "updateInterval") {
+            updateInterval(msg.value);
         }
     });
+});
+
+//Initially set interval to 10 minutes
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason === "install") {
+        clearInterval(timerVal);
+        updateInterval(10 * 60 * 1000);
+        setInterval(showFlashCard, interval);
+    }
 });
