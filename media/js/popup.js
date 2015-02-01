@@ -3,7 +3,23 @@ var backend = chrome.runtime.connect({name: "connectionToBackend"});
 var noMeaningFoundError = "No meaning found";
 var otherError = "Some error occurred. Please try later";
 
+
 $(document).ready(function(){
+
+    $("#zingerFreqSlider").slider({
+        min: 1,
+        max: 30,
+        animate: "slow",
+        orientation: "horizontal",
+        change: function(event, ui) {
+            var val = parseInt(ui.value) * 60 * 1000;
+            backend.postMessage({type: "updateInterval", value: val});
+        }
+    });
+
+    chrome.storage.local.get({"m_slider"}, function(defaultSliderValue){
+        $("#zingerFreqSlider").slider({value: defaultSliderValue["m_slider"]});
+    });
 
     // When user clicks the browser_action icon
     // get selected text

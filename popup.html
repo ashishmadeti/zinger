@@ -9,12 +9,24 @@
                 height: 200px;
               }
         </style>
+        <link rel="stylesheet" type="text/css" href="media/css/jquery-ui.min.css">
     </head>
     <body>
         <div id="zingerContent">
             <p id="zingerMeaning"><strong>Searching for meaning....</strong></p>
+            <div style="position: absolute; bottom: 0; width: 350px;">
+                <hr>
+                <p><strong>Frequency of flash cards</strong></p>
+                <div id="zingerFreqSlider"></div>
+                <div>
+                    <p style="float: left;">High (1 min)</p>
+                    <p style="float: right;">Low (30 min)</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
         </div>
         <script type="text/javascript" src="media/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="media/js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="media/js/config.js"></script>
         <script type="text/javascript" src="media/js/dictionary.js"></script>
         <script type="text/javascript" src="media/js/popup.js"></script>
