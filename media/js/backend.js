@@ -223,6 +223,10 @@ function click(word, knew) {
 
 //Update interval, accepts new value in milliseconds
 function updateInterval(newVal) {
+    if (interval === newVal) {
+        return;
+    }
+
     interval = newVal;
     if (timerVal) {
         clearInterval(timerVal);
