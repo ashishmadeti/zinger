@@ -1,22 +1,13 @@
-function storeInChrome(newWord) {
-    //Convert newWord into a key-value pair
-    var w = {};
-    w[newWord.word] = newWord.properties;
-    chrome.storage.local.set(w, function() {
-        console.debug("Saved word ", newWord.word);
-    });
-}
-
-//Store the value of interval in chrome storage
-function storeInterval(newVal) {
-    var newInterval = {};
-    newInterval[intervalPropertyName] = newVal;
-    chrome.storage.local.set(newInterval, function() {
+//Stores a key-value pair in storage
+function storeInChrome(key, value) {
+    var newPair = {};
+    newPair[key] = value;
+    chrome.storage.local.set(newPair, function() {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError.message);
-            return false;
+            return;
         }
-        console.debug("Saved word ", intervalPropertyName);
+        console.debug("Saved key ", key);
     });
 }
 

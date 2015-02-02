@@ -37,7 +37,7 @@ function saveWord(word, meaning, context) {
     newWord.properties = properties;
     newWords.push(newWord);
 
-    storeInChrome(newWord);
+    storeInChrome(word, properties);
 }
 
 //Check if the word already exists in the database
@@ -178,7 +178,7 @@ function click(word, knew) {
                 oldVal = newWords[i].properties.count;
                 newVal = getNewValue(oldVal, knew);
                 newWords[i].properties.count = newVal;
-                storeInChrome(newWords[i]);
+                storeInChrome(newWords[i].word, newWords[i].properties);
                 newWord = newWords[i];
                 newWords.splice(i, 1);
                 learningWords.push(newWord);
@@ -193,7 +193,7 @@ function click(word, knew) {
                 newVal = getNewValue(oldVal, knew);
                 if (newVal != oldVal) {
                     learningWords[i].properties.count = newVal;
-                    storeInChrome(learningWords[i]);
+                    storeInChrome(learningWords[i].word, learningWords[i].properties);
                     if (newVal == 4) {
                         newWord = learningWords[i];
                         learningWords.splice(i, 1);
@@ -211,7 +211,7 @@ function click(word, knew) {
                 newVal = getNewValue(oldVal, knew);
                 if (newVal != oldVal) {
                     masteredWords[i].properties.count = newVal;
-                    storeInChrome(masteredWords[i]);
+                    storeInChrome(masteredWords[i].word, masteredWords[i].properties);
                     newWord = masteredWords[i];
                     masteredWords.splice(i, 1);
                     learningWords.push(newWord);
@@ -232,7 +232,7 @@ function updateInterval(newVal) {
         clearInterval(timerVal);
     }
     timerVal = setInterval(showFlashCard, interval);
-    storeInterval(newVal);
+    storeInChrome(intervalPropertyName, newVal);
 }
 
 chrome.runtime.onConnect.addListener(function(port) {
