@@ -64,13 +64,10 @@ function existsInDatabase(word) {
 //returns false if there is no word in the array
 function getNextWordFrom(array, currentIndex) {
     if (array.length) {
-        if (currentIndex < array.length) {
-            return array[currentIndex];
-        } else {
-            nextWord = array[0];
+        if (currentIndex == array.length - 1) {
             shuffle(array);
-            return nextWord;
         }
+        return array[currentIndex];
     }
     return false;
 }
@@ -141,7 +138,6 @@ function shuffle(array) {
         array[counter] = array[index];
         array[index] = temp;
     }
-
     return array;
 }
 
