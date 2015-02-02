@@ -60,57 +60,53 @@ function existsInDatabase(word) {
     return false;
 }
 
+//Returns the next word from the array passed according to the index
+//returns false if there is no word in the array
+function getNextWordFrom(array, currentIndex) {
+    if (array.length) {
+        if (currentIndex < array.length) {
+            return array[currentIndex];
+        } else {
+            nextWord = array[0];
+            shuffle(array);
+            return nextWord;
+        }
+    }
+    return false;
+}
+
 //Chooses and returns the next word to flash, returns false if no suitable word is available
 //Rough ratio -> 60% from learningWords[], 30% from newWords[], 10% from masteredWords[]
 function chooseNextWord() {
     //random number between 0 to 9
     var diceRoll = Math.floor(Math.random() * 10);
-    var nextWord;
+    var nextMasteredWord = getNextWordFrom(masteredWords, currentMasteredWordIndex);
+    var nextNewWord = getNextWordFrom(newWords, currentNewWordIndex);
+    var nextLearningWord = getNextWordFrom(learningWords, currentLearningWordIndex);
 
     switch (diceRoll) {
-        case 9: if (masteredWords.length) {
-                    if (currentMasteredWordIndex < masteredWords.length) {
-                        return masteredWords[currentMasteredWordIndex++];
-                    } else {
-                        nextWord = masteredWords[currentMasteredWordIndex = 0];
-                        shuffle(masteredWords);
-                        return nextWord;
-                    }
+        case 9: if (nextMasteredWord) {
+                currentMasteredWordIndex = (currentMasteredWordIndex) % masteredWords.length;
+                return nextMasteredWord;
                 }
         case 8:
         case 7:
-        case 6: if (newWords.length) {
-                    if (currentNewWordIndex < newWords.length) {
-                        return newWords[currentNewWordIndex++];
-                    } else {
-                        nextWord = newWords[currentNewWordIndex = 0];
-                        shuffle(newWords);
-                        return nextWord;
-                    }
+        case 6: if (nextNewWord) {
+                currentNewWordIndex = (currentNewWordIndex+1) % newWords.length;
+                return nextNewWord;
                 }
         case 5:
         case 4:
         case 3:
         case 2:
         case 1:
-        case 0: if (learningWords.length) {
-                    if (currentLearningWordIndex < learningWords.length) {
-                        return learningWords[currentLearningWordIndex++];
-                    } else {
-                        nextWord = learningWords[currentLearningWordIndex = 0];
-                        shuffle(learningWords);
-                        return nextWord;
-                    }
-                } else if (newWords.length) {
-                    if (currentNewWordIndex < newWords.length) {
-                        return newWords[currentNewWordIndex++];
-                    } else {
-                        nextWord = newWords[currentNewWordIndex = 0];
-                        shuffle(newWords);
-                        return nextWord;
-                    }
+        case 0: if (nextLearningWord) {
+                currentLearningWordIndex = (currentLearningWordIndex+1) % learningWords.length;
+                return nextLearningWord;
+                } else {
+                currentNewWordIndex = (currentNewWordIndex) % newWords.length;
+                return nextNewWord;
                 }
-        default: break;
     }
     return false;
 }
@@ -126,7 +122,7 @@ function showFlashCard() {
         if (!wordToSend) {
             return;
         }
-        console.log("sending word ", wordToSend.word);
+        console.debug("sending word ", wordToSend.word);
         chrome.tabs.sendMessage(tabs[0].id, {type: "showFlashCard",
             word: wordToSend.word,
             meaning: wordToSend.properties.meaning,
@@ -149,8 +145,8 @@ function shuffle(array) {
     return array;
 }
 
-//New value according to the old value and the user knew the word or not
-function getNewValue(oldVal, knew) {
+//New count according to the old value and the user knew the word or not
+function getNewCountOfWord(oldVal, knew) {
     if (knew) {
         switch (oldVal) {
             case -1: return 1;
@@ -176,7 +172,7 @@ function click(word, knew) {
             if (newWords[i].word === word) {
                 found = true;
                 oldVal = newWords[i].properties.count;
-                newVal = getNewValue(oldVal, knew);
+                newVal = getNewCountOfWord(oldVal, knew);
                 newWords[i].properties.count = newVal;
                 storeInChrome(newWords[i].word, newWords[i].properties);
                 newWord = newWords[i];
@@ -190,7 +186,7 @@ function click(word, knew) {
             if (learningWords[i].word === word) {
                 found = true;
                 oldVal = learningWords[i].properties.count;
-                newVal = getNewValue(oldVal, knew);
+                newVal = getNewCountOfWord(oldVal, knew);
                 if (newVal != oldVal) {
                     learningWords[i].properties.count = newVal;
                     storeInChrome(learningWords[i].word, learningWords[i].properties);
@@ -208,7 +204,7 @@ function click(word, knew) {
             if (masteredWords[i].word === word) {
                 found = true;
                 oldVal = masteredWords[i].properties.count;
-                newVal = getNewValue(oldVal, knew);
+                newVal = getNewCountOfWord(oldVal, knew);
                 if (newVal != oldVal) {
                     masteredWords[i].properties.count = newVal;
                     storeInChrome(masteredWords[i].word, masteredWords[i].properties);
