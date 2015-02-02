@@ -9,3 +9,4 @@ A vocabulary builder, which helps you to learn new words with minimum efforts. U
 - [ ] Change dictionary API
 - [ ] Improve UI of meaning box (when user double clicks on a word)
 - [ ] Improve flashcard's UI
+- [ ] Move flashcard from content script to background
