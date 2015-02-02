@@ -27,6 +27,8 @@
                 "media/js/config.js",
                 "media/js/getContext.js",
                 "media/js/dictionary.js",
+                "media/js/messages.js",
+                "media/js/showMeaning.js",
                 "media/js/flashcard.js"
             ]
         }
