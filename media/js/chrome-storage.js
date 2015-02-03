@@ -1,4 +1,4 @@
-//Stores a key-value pair in storage
+// Stores a key-value pair in storage
 function storeInChrome(key, value) {
     var newPair = {};
     newPair[key] = value;
@@ -11,7 +11,7 @@ function storeInChrome(key, value) {
     });
 }
 
-//Load all words from chrome storage into arrays
+// Load all words from chrome storage into arrays
 function fetchAllWordsFromChrome() {
     chrome.storage.local.get(null, function(wordObjects) {
         var words = Object.keys(wordObjects);
@@ -46,4 +46,3 @@ function fetchAllWordsFromChrome() {
         }
     });
 }
-
