@@ -7,8 +7,8 @@
 
     "background": {
         "scripts": [
-            "media/js/chrome-storage.js",
-            "media/js/backend.js"
+            "js/chromeStorage.js",
+            "js/backend.js"
         ]
     },
 
@@ -16,26 +16,26 @@
         {
             "matches": ["<all_urls>"],
             "css": [
-                "media/css/mystyles.css",
-                "media/css/jquery-ui.min.css",
-                "media/css/jquery.qtip.min.css"
+                "css/mystyles.css",
+                "css/jquery-ui.min.css",
+                "css/jquery.qtip.min.css"
             ],
             "js": [
-                "media/js/jquery-2.1.1.min.js",
-                "media/js/jquery-ui.min.js",
-                "media/js/jquery.qtip.min.js",
-                "media/js/config.js",
-                "media/js/getContext.js",
-                "media/js/dictionary.js",
-                "media/js/messages.js",
-                "media/js/showMeaning.js",
-                "media/js/flashcard.js"
+                "libs/jquery-2.1.1.min.js",
+                "libs/jquery-ui.min.js",
+                "libs/jquery.qtip.min.js",
+                "js/config.js",
+                "js/getContext.js",
+                "js/dictionary.js",
+                "js/messages.js",
+                "js/showMeaning.js",
+                "js/flashcard.js"
             ]
         }
     ],
 
     "web_accessible_resources": [
-        "media/js/jquery.qtip.min.js.map"
+        "libs/jquery.qtip.min.js.map"
     ],
 
     "browser_action": {
@@ -45,7 +45,6 @@
     },
 
     "icons": {
-        // Icon credits: The Noun Project
         "48": "icon.png",
         "128": "icon.png"
     },
