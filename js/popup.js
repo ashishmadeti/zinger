@@ -5,7 +5,6 @@ var otherError = "Some error occurred. Please try later";
 
 
 $(document).ready(function(){
-
     $("#zingerFreqSlider").slider({
         min: 1,
         max: 30,
@@ -17,11 +16,18 @@ $(document).ready(function(){
         }
     });
 
-    backend.postMessage({type: "getInterval"});
-    backend.onMessage.addListener(function(msg) {
-        if (msg.type === "getIntervalReply") {
-            $("#zingerFreqSlider").slider("value", parseInt(msg.value) / 1000);
+    $("#zingerLookupBtn").click(function(){
+        var word = $("#zingerLookupInp").val().toLowerCase();
+        var context = "No context found!";
+
+        if(!isValidInput(word)) {
+            $("#zingerMeaning").html('Please enter a valid word...');
+            return false;
         }
+
+        $("#zingerMeaning").html('<strong>Searching for meaning...</strong>');
+        $("#zingerLookupDiv").hide();
+        fetchAndSaveWord(word, context);
     });
 
     // When user clicks the browser_action icon
@@ -32,25 +38,46 @@ $(document).ready(function(){
                 return false;
             }
 
-            var word = response.data;
+            $("#zingerLookupDiv").hide();
+            var word = response.data.toLowerCase();
             var context = response.context;
 
-            if(/^[a-zA-Z ]+$/.test(word) == false) {
-                $("#zingerMeaning").html('Please make a valid selection ...');
+            if(!isValidInput(word)) {
+                $("#zingerMeaning").html('Please make a valid selection...');
                 return false;
             }
 
-            fetchMeaningCambridge(word.toLowerCase(), function(meaning){
-                $("#zingerMeaning").html('<h2>' + word + '</h2>');
-                $("#zingerMeaning").append('<p>' + meaning + '</p>');
-
-                if (meaning == noMeaningFoundError || meaning == otherError) {
-                    return false;
-                }
-
-                backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
-            });
-
+            $("#zingerMeaning").html('<strong>Searching for meaning...</strong>');
+            fetchAndSaveWord(word, context);
         });
     });
+
+    // Communicating to backend
+    backend.postMessage({type: "getInterval"});
+    backend.onMessage.addListener(function(msg) {
+        if (msg.type === "getIntervalReply") {
+            $("#zingerFreqSlider").slider("value", parseInt(msg.value) / 1000);
+        }
+    });
 });
+
+function isValidInput(string) {
+    if(/^[a-zA-Z ]+$/.test(string) == false) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function fetchAndSaveWord(word, context) {
+    fetchMeaningCambridge(word, function(meaning){
+        $("#zingerMeaning").html('<h2>' + word + '</h2>');
+        $("#zingerMeaning").append('<p>' + meaning + '</p>');
+
+        if (meaning == noMeaningFoundError || meaning == otherError) {
+            return false;
+        }
+
+        backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
+    });
+}

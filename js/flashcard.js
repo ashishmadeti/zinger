@@ -25,12 +25,12 @@ $(document).ready(function() {
     $('body').prepend(flashcardTemplate);
 
     $('#zingerYes').click(function(e) {
-        backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: true});
+        backend.postMessage({type: "click", word: $("#zingerCardWord").text().toLowerCase(), knew: true});
         $(".zingerStage").hide();
     });
 
     $('#zingerNo').click(function(e) {
-        backend.postMessage({type: "click", word: $("#zingerCardWord").text(), knew: false});
+        backend.postMessage({type: "click", word: $("#zingerCardWord").text().toLowerCase(), knew: false});
         $(".zingerStage").hide();
     });
 
@@ -75,7 +75,9 @@ $(document).ready(function() {
 // To listen to new word event
 chrome.runtime.onMessage.addListener(function(msg, sender) {
     if (msg.type === "showFlashCard") {
-        //use msg.word, msg.meaning and msg.context
+        // Capitalize first letter
+        msg.word = msg.word.charAt(0).toUpperCase() + msg.word.slice(1);
+
         $("#zingerCardWord").html(msg.word);
         $("#zingerCardMeaning").html(msg.meaning);
         $("#zingerExampleTxt").html(msg.context);

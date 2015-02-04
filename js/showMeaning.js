@@ -6,7 +6,7 @@ var backend = chrome.runtime.connect({name: "connectionToBackend"});
 $(document).ready(function () {
     $(document).dblclick(function(e){
         var wordObject = window.getSelection();
-        word = $.trim(wordObject.toString());
+        word = $.trim(wordObject.toString().toLowerCase());
         var result = word.split(/[\n\r\s]+/);
         // To disable multiple words selection
         // and null selection
@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
 
         showQtip(document, e);
-        fetchMeaningCambridge(word.toLowerCase(), function(message){
+        fetchMeaningCambridge(word, function(message){
             meaning = message;
             changeQtipText(meaning);
             meaningDisplayFlag = true;
