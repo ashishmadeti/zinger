@@ -94,12 +94,3 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         sendResponse({}); // snub them.
     }
 });
-
-// Problems:
-// 1. If we view the meaning at bottom of page... there will be no space for the box.
-// 2. If we show tooltip on top.. speech bubble orientation is not correct
-// 3. We should not display text on double click inside text area (what say?)
-// 4. If mouse not near word when double clicking then tooltip is coming at wrong place.
-//    try clicking outside the line and let it select the first word automatically
-// 5. Middle click twice
-// 6. Moving the window from one screen to another, the tooltip is present at old location
