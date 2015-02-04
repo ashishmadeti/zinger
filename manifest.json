@@ -18,7 +18,8 @@
             "css": [
                 "css/flashcard.css",
                 "css/jquery-ui.min.css",
-                "css/jquery.qtip.min.css"
+                "css/jquery.qtip.min.css",
+                "css/qtip.custom.css"
             ],
             "js": [
                 "libs/jquery-2.1.1.min.js",
