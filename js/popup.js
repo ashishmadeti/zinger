@@ -20,7 +20,6 @@ $(document).ready(function(){
     backend.postMessage({type: "getInterval"});
     backend.onMessage.addListener(function(msg) {
         if (msg.type === "getIntervalReply") {
-            console.log(parseInt(msg.value));
             $("#zingerFreqSlider").slider("value", parseInt(msg.value) / 1000);
         }
     });
@@ -41,7 +40,7 @@ $(document).ready(function(){
                 return false;
             }
 
-            fetchMeaning(word.toLowerCase(), function(meaning){
+            fetchMeaningCambridge(word.toLowerCase(), function(meaning){
                 $("#zingerMeaning").html('<h2>' + word + '</h2>');
                 $("#zingerMeaning").append('<p>' + meaning + '</p>');
 
