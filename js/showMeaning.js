@@ -17,7 +17,7 @@ $(document).ready(function () {
         showQtip(document, e);
         fetchMeaningCambridge(word.toLowerCase(), function(message){
             meaning = message;
-            changeQtipText(document, meaning);
+            changeQtipText(meaning);
             meaningDisplayFlag = true;
         });
 
@@ -42,9 +42,9 @@ $(document).ready(function () {
 
 function showQtip(selector, e) {
     $(selector).qtip({
+        id: 'meaningTooltip',
         content: {
             text: "Searching for meaning....."
-            // text: $('#zingerHiddenDiv')
         },
 
         position: {
@@ -80,9 +80,8 @@ function showQtip(selector, e) {
 }
 
 
-function changeQtipText(selector, newText) {
-    $(selector).qtip('option', 'content.text', newText);
-    $(selector).qtip('option', 'style.tip.height', "100px");
+function changeQtipText(newText) {
+    $('#qtip-meaningTooltip').qtip('option', 'content.text', newText);
 }
 
 
