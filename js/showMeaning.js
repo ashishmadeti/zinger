@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
 
         showQtip(document, e);
-        fetchMeaning(word.toLowerCase(), function(message){
+        fetchMeaningCambridge(word.toLowerCase(), function(message){
             meaning = message;
             changeQtipText(document, meaning);
             meaningDisplayFlag = true;
@@ -61,7 +61,8 @@ function showQtip(selector, e) {
         },
 
         style: {
-            width: "250px"
+            width: "250px",
+            height: "100px"
         },
 
         hide: {
@@ -81,6 +82,7 @@ function showQtip(selector, e) {
 
 function changeQtipText(selector, newText) {
     $(selector).qtip('option', 'content.text', newText);
+    $(selector).qtip('option', 'style.tip.height', "100px");
 }
 
 
