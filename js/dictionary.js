@@ -63,8 +63,6 @@ function fetchMeaningCambridge(word, callback) {
             });
 
             callback(output);
-            //console.log(htmlContent);
-            console.log(output);
         },
 
         statusCode: {
@@ -75,10 +73,12 @@ function fetchMeaningCambridge(word, callback) {
     });
 }
 
+// To capitalize first letter of meaning
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// To remove colon and add full stop at end of meaning
 function removeTrailingColon(string) {
     string = string.trim();  // To remove extra whitespaces
     if (string.charAt(string.length - 1) == ":") {
