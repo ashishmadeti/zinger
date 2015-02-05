@@ -2,14 +2,14 @@ var testWord = "xxTestWordxx";
 var testMeaning = "xxTestMeaningxx";
 var testContext = "xxTestContextxx";
 
-QUnit.test("test shuffle()", function(assert) {
+QUnit.test("shuffle()", function(assert) {
     var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     var shuffledArray = array.slice();
     shuffle(shuffledArray);
     assert.notDeepEqual(array, shuffledArray, "Shuffled array is not equal to original array");
 });
 
-QUnit.test("test saveWord()", function(assert) {
+QUnit.test("saveWord()", function(assert) {
     assert.expect(2);
     saveWord(testWord, testMeaning, testContext);
 
@@ -47,4 +47,24 @@ QUnit.test("test saveWord()", function(assert) {
         });
         done();
     });
+});
+
+QUnit.test("existsInDatabase()", function(assert) {
+    assert.expect(4);
+    var w = {};
+    w.word = testWord;
+
+    assert.ok(!existsInDatabase(testWord), "Returned false when testWord was not present in arrays");
+
+    newWords.push(w);
+    assert.ok(existsInDatabase(testWord), "Returned true when testWord was in newWords[]");
+    newWords.pop();
+
+    learningWords.push(w);
+    assert.ok(existsInDatabase(testWord), "Returned true when testWord was in learningWords[]");
+    learningWords.pop();
+
+    masteredWords.push(w);
+    assert.ok(existsInDatabase(testWord), "Returned true when testWord was in masteredWords[]");
+    masteredWords.pop();
 });
