@@ -1,0 +1,14 @@
+2015-02-06 Ashish Madeti <ashishmadeti@gmail.com> - v0.1-beta
+    * Improved flashcard's UI
+    * Added an option for not saving the word after lookup
+    * Improved the UI of meaning tooltip
+    * Changed the dictionary API
+    * Added unit testing framework
+
+    * Bug Fixes:
+        #15: "Searching for meaning...." in browser action icon even if nothing is selected
+        #18: Don't show meaning on double click on input or textarea tags
+        #22: Don't change word if user is viewing meaning
+
+2015-02-01 Ashish Madeti <ashishmadeti@gmail.com> - v0.1-alpha
+    * Initial tag of Zinger
