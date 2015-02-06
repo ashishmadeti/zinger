@@ -42,20 +42,95 @@
   text-align: center;
   -webkit-backface-visibility: hidden;
   overflow-y: auto;
+  color: black;
 }
 
-.zingerFront p {
+p#zingerCardWord {
   margin-top: 20%;
+  margin-bottom: 5px;
   font-size: 3em;
   text-align: center;
+  color: black;
 }
 
-.zingerBack p {
+p#zingerCardMeaning {
   margin-top: 10%;
   font-size: 1em;
   text-align: center;
+  color: black;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .zingerRemember {
   margin-bottom: 5%;
+}
+
+.zingerBtn {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.zingerBtnPrimary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.zingerBtnPrimary:hover,
+.zingerBtnPrimary:focus,
+.zingerBtnPrimary:active {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+
+.zingerBtnDanger {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.zingerBtnDanger:hover,
+.zingerBtnDanger:focus,
+.zingerBtnDanger:active {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+
+.zingerBtnSuccess {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.zingerBtnSuccess:hover,
+.zingerBtnSuccess:focus,
+.zingerBtnSuccess:active {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+#zingerExampleTxt {
+    padding-left: 8px;
+    padding-right: 8px;
 }
