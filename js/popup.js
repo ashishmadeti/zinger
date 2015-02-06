@@ -39,7 +39,7 @@ $(document).ready(function(){
             }
 
             $("#zingerLookupDiv").hide();
-            var word = response.data.toLowerCase();
+            var word = $.trim(response.data.toLowerCase());
             var context = response.context;
 
             if(!isValidInput(word)) {
