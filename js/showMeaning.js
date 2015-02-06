@@ -1,4 +1,3 @@
-var meaningDisplayFlag = false;
 var meaning, word, context;
 
 var backend = chrome.runtime.connect({name: "connectionToBackend"});
@@ -19,29 +18,13 @@ $(document).ready(function () {
             return;
         }
 
-        showQtip(document, e);
+        showQtip(e.target, e);
         fetchMeaningCambridge(word, function(message){
             meaning = message;
             changeQtipText(meaning);
-            meaningDisplayFlag = true;
         });
 
         context = getContext(wordObject);
-        console.log(context);
-    });
-
-    $(document).on('mousedown', function(){
-        if (!meaningDisplayFlag) {
-            return;
-        }
-
-        if (meaning === noMeaningFoundError || meaning == otherError) {
-            // Don't save the word
-            return;
-        }
-
-        backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
-        meaningDisplayFlag = false;
     });
 });
 
@@ -49,7 +32,8 @@ function showQtip(selector, e) {
     $(selector).qtip({
         id: 'meaningTooltip',
         content: {
-            text: "Searching for meaning....."
+            text: "Searching for meaning.....",
+            button: true
         },
 
         position: {
@@ -71,21 +55,34 @@ function showQtip(selector, e) {
         },
 
         hide: {
-            event: 'mousedown'
+            event: 'unfocus'
         },
 
         events: {
             hide: function(event, api) {
+                if (meaning === noMeaningFoundError || meaning == otherError) {
+                    // Don't save the word
+                    return;
+                }
+
+                // Save the word if user has selected to
+                if ($('#zingerShowLater').is(':checked')) {
+                    backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
+                }
+
                 api.destroy();
             }
         }
     });
 
-    meaningDisplayFlag = true;
 }
 
 
 function changeQtipText(newText) {
+    newText += "<br>\
+    <strong>\
+        <p>Show later: <input type='checkbox' id='zingerShowLater' checked></p>\
+    </strong>";
     $('#qtip-meaningTooltip').qtip('option', 'content.text', newText);
 }
 
