@@ -5,6 +5,11 @@ var backend = chrome.runtime.connect({name: "connectionToBackend"});
 
 $(document).ready(function () {
     $(document).dblclick(function(e){
+        // Don't show meaning on double click on input
+        if ($(document.activeElement).is('input, textarea')) {
+            return false;
+        }
+
         var wordObject = window.getSelection();
         word = $.trim(wordObject.toString().toLowerCase());
         var result = word.split(/[\n\r\s]+/);
