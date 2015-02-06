@@ -70,7 +70,7 @@ QUnit.test("existsInDatabase()", function(assert) {
 });
 
 QUnit.test("getNextWordFrom()", function(assert) {
-    assert.expect(5);
+    assert.expect(4);
     var array = ["first", "second", "last"];
     var emptyArray = [];
     var currentIndex = {value: 0};
@@ -85,10 +85,6 @@ QUnit.test("getNextWordFrom()", function(assert) {
 
     nextWord = getNextWordFrom(array, currentIndex);
     assert.ok((nextWord === "last") && (currentIndex.value == 0),
-              "Returned right word and updated currentIndex");
-
-    nextWord = getNextWordFrom(array, currentIndex);
-    assert.ok((nextWord === "first") && (currentIndex.value == 1),
               "Returned right word and updated currentIndex");
 
     nextWord = getNextWordFrom(emptyArray, currentIndex);
