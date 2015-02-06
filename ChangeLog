@@ -2,6 +2,7 @@
     * Improved flashcard's UI
     * Added an option for not saving the word after lookup
     * Improved the UI of meaning tooltip
+    * Added an option to lookup a word by entering it manually
     * Changed the dictionary API
     * Added unit testing framework
 
