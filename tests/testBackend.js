@@ -68,3 +68,29 @@ QUnit.test("existsInDatabase()", function(assert) {
     assert.ok(existsInDatabase(testWord), "Returned true when testWord was in masteredWords[]");
     masteredWords.pop();
 });
+
+QUnit.test("getNextWordFrom()", function(assert) {
+    assert.expect(5);
+    var array = ["first", "second", "last"];
+    var emptyArray = [];
+    var currentIndex = {value: 0};
+
+    var nextWord = getNextWordFrom(array, currentIndex);
+    assert.ok((nextWord === "first") && (currentIndex.value == 1),
+              "Returned right word and updated currentIndex");
+
+    nextWord = getNextWordFrom(array, currentIndex);
+    assert.ok((nextWord === "second") && (currentIndex.value == 2),
+              "Returned right word and updated currentIndex");
+
+    nextWord = getNextWordFrom(array, currentIndex);
+    assert.ok((nextWord === "last") && (currentIndex.value == 0),
+              "Returned right word and updated currentIndex");
+
+    nextWord = getNextWordFrom(array, currentIndex);
+    assert.ok((nextWord === "first") && (currentIndex.value == 1),
+              "Returned right word and updated currentIndex");
+
+    nextWord = getNextWordFrom(emptyArray, currentIndex);
+    assert.ok(!nextWord, "Returned false when empty array was passed");
+});
