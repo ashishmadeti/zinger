@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(document).dblclick(function(e){
         // Don't show meaning on double click on input
         if ($(document.activeElement).is('input, textarea')) {
-            return false;
+            return;
         }
 
         var wordObject = window.getSelection();
@@ -15,7 +15,7 @@ $(document).ready(function () {
         var result = word.split(/[\n\r\s]+/);
         // To disable multiple words selection
         // and null selection
-        if (result.length != 1 || word == '') {
+        if (result.length != 1 || !isValidInput(word)) {
             return;
         }
 
@@ -89,6 +89,13 @@ function changeQtipText(newText) {
     $('#qtip-meaningTooltip').qtip('option', 'content.text', newText);
 }
 
+function isValidInput(string) {
+    if(/^[a-zA-Z]+$/.test(string) == false) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // Listen for incoming requests from browser_action script
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
