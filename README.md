@@ -8,4 +8,4 @@ A vocabulary builder, which helps you to learn new words with minimum efforts. U
 - [x] ~~Add option of not saving a word (when showing meaning)~~
 - [x] ~~Change dictionary API~~
 - [x] ~~Improve UI of meaning box (when user double clicks on a word)~~
-- [ ] Improve flashcard's UI
+- [x] ~~Improve flashcard's UI~~
