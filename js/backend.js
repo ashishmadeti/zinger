@@ -1,14 +1,14 @@
 //"New" category words
 var newWords = [];
-var currentNewWordIndex = 0;
+var currentNewWordIndex = {value: 0};
 
 //"Learning" category words
 var learningWords = [];
-var currentLearningWordIndex = 0;
+var currentLearningWordIndex = {value: 0};
 
 //"Mastered" category words
 var masteredWords = [];
-var currentMasteredWordIndex = 0;
+var currentMasteredWordIndex = {value: 0};
 
 //Interval between two consecutive card flashes (in milliseconds)
 var interval;
@@ -60,14 +60,17 @@ function existsInDatabase(word) {
     return false;
 }
 
-//Returns the next word from the array passed according to the index
+//Returns the next word from the array passed according to the currentIndex
+//currentIndex is an object with property "value"
 //returns false if there is no word in the array
 function getNextWordFrom(array, currentIndex) {
     if (array.length) {
-        if (currentIndex == array.length - 1) {
+        var nextWord = array[currentIndex.value];
+        if (currentIndex.value == array.length - 1) {
             shuffle(array);
         }
-        return array[currentIndex];
+        currentIndex.value = (currentIndex.value + 1) % array.length;
+        return nextWord;
     }
     return false;
 }
@@ -77,33 +80,30 @@ function getNextWordFrom(array, currentIndex) {
 function chooseNextWord() {
     //random number between 0 to 9
     var diceRoll = Math.floor(Math.random() * 10);
-    var nextMasteredWord = getNextWordFrom(masteredWords, currentMasteredWordIndex);
-    var nextNewWord = getNextWordFrom(newWords, currentNewWordIndex);
-    var nextLearningWord = getNextWordFrom(learningWords, currentLearningWordIndex);
+    var nextMasteredWord, nextNewWord, nextLearningWord;
 
     switch (diceRoll) {
-        case 9: if (nextMasteredWord) {
-                currentMasteredWordIndex = (currentMasteredWordIndex) % masteredWords.length;
-                return nextMasteredWord;
+        case 9: nextMasteredWord = getNextWordFrom(masteredWords, currentMasteredWordIndex);
+                if (nextMasteredWord) {
+                    return nextMasteredWord;
                 }
         case 8:
         case 7:
-        case 6: if (nextNewWord) {
-                currentNewWordIndex = (currentNewWordIndex+1) % newWords.length;
-                return nextNewWord;
+        case 6: nextNewWord = getNextWordFrom(newWords, currentNewWordIndex);
+                if (nextNewWord) {
+                    return nextNewWord;
                 }
         case 5:
         case 4:
         case 3:
         case 2:
         case 1:
-        case 0: if (nextLearningWord) {
-                currentLearningWordIndex = (currentLearningWordIndex+1) % learningWords.length;
-                return nextLearningWord;
-                } else {
-                currentNewWordIndex = (currentNewWordIndex) % newWords.length;
-                return nextNewWord;
+        case 0: nextLearningWord = getNextWordFrom(learningWords, currentLearningWordIndex);
+                if (nextLearningWord) {
+                    return nextLearningWord;
                 }
+                nextNewWord = getNextWordFrom(newWords, currentNewWordIndex);
+                return nextNewWord;
     }
     return false;
 }
