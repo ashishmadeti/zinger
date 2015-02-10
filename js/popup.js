@@ -78,6 +78,11 @@ function fetchAndSaveWord(word, context) {
             return false;
         }
 
+        // If no context exists
+        if (!context) {
+            context = "No context found";
+        }
+
         backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
     });
 }

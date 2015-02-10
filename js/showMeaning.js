@@ -68,6 +68,11 @@ function showQtip(selector, e) {
                     return;
                 }
 
+                // If no context exists
+                if (!context) {
+                    context = "No context found";
+                }
+
                 // Save the word if user has selected to
                 if ($('#zingerShowLater').is(':checked')) {
                     backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
