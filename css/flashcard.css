@@ -12,6 +12,10 @@
   display: none;
 }
 
+.zingerStage:hover {
+    cursor: pointer;
+}
+
 .zingerFlashcard {
   height: 200px;
   width: 336px;
