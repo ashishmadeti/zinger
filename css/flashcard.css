@@ -1,7 +1,7 @@
 .zingerStage {
   -webkit-perspective: 1000;
   position: absolute;
-  z-index: 999999;
+  z-index: 2147483647;
   position: fixed;
   top: 0;
   bottom: 0;
