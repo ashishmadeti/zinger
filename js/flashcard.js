@@ -1,4 +1,3 @@
-var flipped = false;
 var dragged = false;
 
 $(document).ready(function() {
@@ -27,11 +26,13 @@ $(document).ready(function() {
     $('#zingerYes').click(function(e) {
         backend.postMessage({type: "click", word: $("#zingerCardWord").text().toLowerCase(), knew: true});
         $(".zingerStage").hide();
+        $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
     $('#zingerNo').click(function(e) {
         backend.postMessage({type: "click", word: $("#zingerCardWord").text().toLowerCase(), knew: false});
         $(".zingerStage").hide();
+        $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
     $('#zingerHintBtn').click(function() {
@@ -42,18 +43,16 @@ $(document).ready(function() {
      });
 
     $('.zingerFlashcard').on('click', function(e) {
+        // Don't flip card on button clicks
+        if ($(e.target).is(':button')) {
+            return false;
+        }
+
         if (dragged) {
             dragged = false;
             return false;
         }
 
-        if ($(e.target).is('#zingerHintBtn')) {
-            // Don't flip card on example button click
-            // or card is dragged
-            return false;
-        }
-
-        flipped = !flipped;
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
@@ -69,7 +68,7 @@ $(document).ready(function() {
 chrome.runtime.onMessage.addListener(function(msg, sender) {
     if (msg.type === "showFlashCard") {
         // Don't change card if user is viewing meaning
-        if (flipped) {
+        if ($(".zingerFlashcard").hasClass('zingerFlipped')) {
             return false;
         }
 
@@ -85,18 +84,19 @@ chrome.runtime.onMessage.addListener(function(msg, sender) {
         });
         msg.context = wordsInContext.join(" ");
 
-        $(".zingerStage").show();
+        // Revert to initial state of card
+        // Hide the example and show hint button
+        $('#zingerCardWord').css('margin-top', '20%');
+        $('#zingerExampleTxt').hide();
+        $('#zingerHintBtn').show();
+        $('.zingerFlashcard').removeClass('zingerFlipped');
 
-        // Revert to inital state of card
-        if ($('#zingerExampleTxt').is(':visible')) {
-            // Hide the example and show hint button
-            $('#zingerCardWord').css('margin-top', '20%');
-            $('#zingerExampleTxt').hide();
-            $('#zingerHintBtn').show();
-        }
-
+        // Set the new content
         $("#zingerCardWord").html(msg.word);
         $("#zingerCardMeaning").html(msg.meaning);
         $("#zingerExampleTxt").html(msg.context);
+
+        // Show the card
+        $(".zingerStage").show();
     }
 });
