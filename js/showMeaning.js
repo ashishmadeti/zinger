@@ -61,6 +61,9 @@ function showQtip(selector, e) {
         events: {
             hide: function(event, api) {
                 if (!meaning || meaning === noMeaningFoundError || meaning == otherError) {
+                    // First destroy the qTip
+                    api.destroy();
+
                     // Don't save the word
                     return;
                 }
