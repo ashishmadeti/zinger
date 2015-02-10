@@ -60,7 +60,7 @@ function showQtip(selector, e) {
 
         events: {
             hide: function(event, api) {
-                if (meaning === noMeaningFoundError || meaning == otherError) {
+                if (!meaning || meaning === noMeaningFoundError || meaning == otherError) {
                     // Don't save the word
                     return;
                 }
@@ -70,6 +70,10 @@ function showQtip(selector, e) {
                     backend.postMessage({type: "saveWord", word: word, meaning: meaning, context: context});
                 }
 
+                // When next time this function is called and meaning
+                // is not updated (i.e still searching for meaning)
+                // then don't use the previous meaning
+                meaning = null;
                 api.destroy();
             }
         }
