@@ -3,7 +3,7 @@ var dragged = false;
 $(document).ready(function() {
     var backend = chrome.runtime.connect({name: "connectionToBackend"});
     var flashcardTemplate = '\
-    <div class="zingerStage">\
+    <div class="zingerStage" style="left: 40% !important;">\
         <div class="zingerFlashcard">\
             <div class="zingerFront">\
                 <p id="zingerCardWord"></p>\

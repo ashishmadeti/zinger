@@ -2,11 +2,6 @@
   -webkit-perspective: 1000;
   position: absolute;
   z-index: 2147483647;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto 80%;
   height: 200px;
   width: 336px;
   display: none;
@@ -19,7 +14,7 @@
 .zingerFlashcard {
   height: 200px;
   width: 336px;
-  margin: auto 80%;
+  left: 40%;
   border: 1px solid gray;
   box-shadow: 2px 2px 2px #000;
   -webkit-transform-style: preserve-3d;
