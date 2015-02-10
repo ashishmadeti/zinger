@@ -25,6 +25,7 @@
                 "libs/jquery-2.1.1.min.js",
                 "libs/jquery-ui.min.js",
                 "libs/jquery.qtip.min.js",
+                "libs/jquery.pep.js",
                 "js/config.js",
                 "js/getContext.js",
                 "js/dictionary.js",

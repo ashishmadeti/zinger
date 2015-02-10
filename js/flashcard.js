@@ -56,12 +56,13 @@ $(document).ready(function() {
         $('.zingerFlashcard').toggleClass('zingerFlipped');
     });
 
-    $(".zingerStage").draggable({containment: "html"});
+    $(".zingerStage").pep({
+        constrainTo: 'window',
 
-    $('.zingerStage').on('drag', function(e) {
-        dragged = true;
+        start: function() {
+            dragged = true;
+        }
     });
-
 });
 
 // To listen to new word event
