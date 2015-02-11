@@ -63,6 +63,13 @@ $(document).ready(function() {
             dragged = true;
         }
     });
+
+    $('#zingerCardMeaning').enscroll({
+        showOnHover: true,
+        verticalTrackClass: 'track3',
+        verticalHandleClass: 'handle3',
+        addPaddingToPane: false
+    });
 });
 
 // To listen to new word event

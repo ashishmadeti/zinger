@@ -27,6 +27,7 @@
                 "libs/jquery-ui.min.js",
                 "libs/jquery.qtip.min.js",
                 "libs/jquery.pep.js",
+                "libs/enscroll-0.6.1.min.js",
                 "js/config.js",
                 "js/getContext.js",
                 "js/dictionary.js",

@@ -35,29 +35,36 @@
   position: absolute;
   text-align: center;
   -webkit-backface-visibility: hidden;
-  overflow-y: auto;
   color: black;
 }
 
 p#zingerCardWord {
   margin-top: 20%;
-  margin-bottom: 5px;
+  margin-bottom: 4%;
   font-size: 3em;
   text-align: center;
   color: black;
 }
 
 p#zingerCardMeaning {
-  margin-top: 10%;
+  margin-top: 7%;
   font-size: 1em;
   text-align: center;
   color: black;
   padding-left: 8px;
   padding-right: 8px;
+  width: 310px;
+  height: 100px;
+  overflow: auto;
 }
 
 .zingerRemember {
   margin-bottom: 5%;
+}
+
+.zingerRemember p {
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 
 .zingerBtn {
@@ -127,4 +134,25 @@ p#zingerCardMeaning {
 #zingerExampleTxt {
     padding-left: 8px;
     padding-right: 8px;
+}
+
+
+.track3 {
+  margin-top: 20px;
+  width: 10px;
+  background: rgba(0, 0, 0, 0);
+  margin-right: 2px;
+  border-radius: 10px;
+  -webkit-transition: background 250ms linear;
+  transition: background 250ms linear;
+}
+
+.handle3 {
+  width: 5px;
+  right: 0;
+  background: #999;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 7px;
+  -webkit-transition: width 250ms;
+  transition: width 250ms;
 }
