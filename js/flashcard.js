@@ -67,8 +67,8 @@ $(document).ready(function() {
 
     $('#zingerCardMeaning').enscroll({
         showOnHover: true,
-        verticalTrackClass: 'track3',
-        verticalHandleClass: 'handle3',
+        verticalTrackClass: 'zingerScrollTrack',
+        verticalHandleClass: 'zingerScrollHandle',
         addPaddingToPane: false
     });
 });

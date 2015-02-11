@@ -137,7 +137,7 @@ p#zingerCardMeaning {
 }
 
 
-.track3 {
+.zingerScrollTrack {
   margin-top: 20px;
   width: 10px;
   background: rgba(0, 0, 0, 0);
@@ -147,7 +147,7 @@ p#zingerCardMeaning {
   transition: background 250ms linear;
 }
 
-.handle3 {
+.zingerScrollHandle {
   width: 5px;
   right: 0;
   background: #999;
