@@ -10,3 +10,8 @@ The extension can be downloaded from [Chrome Store](https://chrome.google.com/we
 
 - [ ] Add dashboard to view and delete history
 - [x] ~~All open bugs fix~~
+
+###Contributors
+* Shivam Dixit
+* Ashish Madeti
+* Ritesh Agrawal
