@@ -58,6 +58,7 @@ $(document).ready(function() {
 
     $(".zingerStage").pep({
         constrainTo: 'window',
+        shouldEase: false,
 
         start: function() {
             dragged = true;
