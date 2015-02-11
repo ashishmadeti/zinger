@@ -8,6 +8,34 @@
                 min-height: 250px;
                 overflow: hidden;
             }
+
+            .zingerBtn {
+                display: inline-block;
+                padding: 4px 8px;
+                margin-bottom: 0;
+                font-size: 10px;
+                font-weight: normal;
+                line-height: 1.5;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+
+            .zingerBtnPrimary {
+                color: #fff;
+                background-color: #337ab7;
+                border-color: #2e6da4;
+            }
         </style>
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
     </head>
@@ -17,7 +45,7 @@
                 <p id="zingerMeaning"><strong>Enter a word to lookup:</strong></p>
                 <div id="zingerLookupDiv">
                     <input type="text" name="word" id="zingerLookupInp" />
-                    <input type="submit" value="Go" id="zingerLookupBtn"/>
+                    <input type="submit" value="Go" id="zingerLookupBtn" class="zingerBtn zingerBtnPrimary" />
                 </div>
             </div>
             <div style="position: absolute; bottom: 0; width: 350px;">
