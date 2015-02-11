@@ -59,6 +59,13 @@ $(document).ready(function(){
             $("#zingerFreqSlider").slider("value", parseInt(msg.value) / 1000);
         }
     });
+
+    $("#zingerLookupInp").keyup(function(e){
+        // If enter key is pressed
+        if (e.keyCode == 13) {
+            $("#zingerLookupBtn").click();
+        }
+    });
 });
 
 function isValidInput(string) {
