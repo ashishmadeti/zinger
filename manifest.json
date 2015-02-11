@@ -23,7 +23,6 @@
             ],
             "js": [
                 "libs/jquery-2.1.1.min.js",
-                "libs/modernizr.min.js",
                 "libs/jquery-ui.min.js",
                 "libs/jquery.qtip.min.js",
                 "libs/jquery.pep.js",
@@ -36,10 +35,6 @@
                 "js/flashcard.js"
             ]
         }
-    ],
-
-    "web_accessible_resources": [
-        "libs/jquery.qtip.min.js.map"
     ],
 
     "browser_action": {
