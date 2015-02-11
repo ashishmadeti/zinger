@@ -58,13 +58,9 @@ p#zingerCardMeaning {
   overflow: auto;
 }
 
-.zingerRemember {
-  margin-bottom: 5%;
-}
-
 .zingerRemember p {
   margin-top: 13px;
-  margin-bottom: 13px;
+  margin-bottom: 10px;
 }
 
 .zingerBtn {
