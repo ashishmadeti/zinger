@@ -254,6 +254,12 @@ function updateInterval(newVal) {
     storeInChrome(intervalPropertyName, newVal);
 }
 
+//Returns a JSON string of all the words in the database
+function getListOfAllWords() {
+    var completeArray = newWords.concat(learningWords, masteredWords);
+    return JSON.stringify(completeArray);
+}
+
 chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
         if (msg.type === "saveWord") {
@@ -266,6 +272,9 @@ chrome.runtime.onConnect.addListener(function(port) {
             updateInterval(msg.value);
         } else if (msg.type === "getInterval") {
             port.postMessage({type: "getIntervalReply", value: interval});
+        } else if (msg.type === "getListOfAllWords") {
+            var listOfWords = getListOfAllWords();
+            port.postMessage({type: "getListOfAllWordsReply", value: listOfWords});
         }
     });
 });
