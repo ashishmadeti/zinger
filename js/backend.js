@@ -40,6 +40,32 @@ function saveWord(word, meaning, context) {
     storeInChrome(word, properties);
 }
 
+function deleteWord(word) {
+    var found = false;
+    for (var i = 0; i < newWords.length; i++) {
+        if (newWords[i].word === word) {
+            newWords.splice(i, 1);
+            found = true;
+        }
+    }
+    for (var i = 0; i < learningWords.length; i++) {
+        if (learningWords[i].word === word) {
+            learningWords.splice(i, 1);
+            found = true;
+        }
+    }
+    for (var i = 0; i < masteredWords.length; i++) {
+        if (masteredWords[i].word === word) {
+            masteredWords.splice(i, 1);
+            found = true;
+        }
+    }
+
+    if (found) {
+        deleteFromChrome(word);
+    }
+}
+
 //Check if the word already exists in the database
 function existsInDatabase(word) {
     for (var i = 0; i < newWords.length; i++) {
@@ -231,6 +257,8 @@ chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
         if (msg.type === "saveWord") {
             saveWord(msg.word, msg.meaning, msg.context);
+        } else if (msg.type === "deleteWord") {
+            deleteWord(msg.word);
         } else if (msg.type === "click") {
             click(msg.word, msg.knew);
         } else if (msg.type === "updateInterval") {

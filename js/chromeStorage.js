@@ -11,6 +11,17 @@ function storeInChrome(key, value) {
     });
 }
 
+// Deletes the key from storage
+function deleteFromChrome(key) {
+    chrome.storage.local.remove(key, function() {
+        if (chrome.runtime.lastError) {
+            console.log(chrome.runtime.lastError.message);
+            return;
+        }
+        console.debug("Removed key ", key);
+    });
+}
+
 // Load all words from chrome storage into arrays
 function fetchAllWordsFromChrome() {
     chrome.storage.local.get(null, function(wordObjects) {
