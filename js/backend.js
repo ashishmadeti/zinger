@@ -264,17 +264,23 @@ chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
         if (msg.type === "saveWord") {
             saveWord(msg.word, msg.meaning, msg.context);
-        } else if (msg.type === "deleteWord") {
-            deleteWord(msg.word);
         } else if (msg.type === "click") {
             click(msg.word, msg.knew);
         } else if (msg.type === "updateInterval") {
             updateInterval(msg.value);
         } else if (msg.type === "getInterval") {
             port.postMessage({type: "getIntervalReply", value: interval});
-        } else if (msg.type === "getListOfAllWords") {
-            var listOfWords = getListOfAllWords();
-            port.postMessage({type: "getListOfAllWordsReply", value: listOfWords});
         }
     });
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, response){
+    if (request.type === "getListOfAllWords") {
+        var listOfWords = getListOfAllWords();
+        response(listOfWords);
+    }
+
+    if (request.type === "deleteWord") {
+        deleteWord(request.word);
+    }
 });
