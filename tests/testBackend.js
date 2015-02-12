@@ -49,6 +49,35 @@ QUnit.test("saveWord()", function(assert) {
     });
 });
 
+QUnit.test("deleteWord()", function(assert) {
+    assert.expect(2);
+    var w = {};
+    w.word = testWord;
+    var testPair = {};
+    testPair[testWord] = testMeaning;
+
+    newWords.push(w);
+    var foundInArray = false;
+    var foundInStorage = false;
+    var done = assert.async();
+    chrome.storage.local.set(testPair, function() {
+        deleteWord(testWord);
+        for (var i = 0; i < newWords.length; i++) {
+            if (newWords[i].word === testWord) {
+                foundInArray = true;
+            }
+        }
+        assert.ok(!foundInArray, "testWord deleted from local arrays");
+        chrome.storage.local.get(null, function(wordObjects) {
+            if (wordObjects[testWord]) {
+                foundInStorage = true;
+            }
+            assert.ok(!foundInStorage, "testWord deleted from chrome storage");
+            done();
+        });
+    });
+});
+
 QUnit.test("existsInDatabase()", function(assert) {
     assert.expect(4);
     var w = {};

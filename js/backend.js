@@ -40,6 +40,7 @@ function saveWord(word, meaning, context) {
     storeInChrome(word, properties);
 }
 
+//Delete a word from local arrays and storage
 function deleteWord(word) {
     var found = false;
     for (var i = 0; i < newWords.length; i++) {
