@@ -6,11 +6,6 @@ A vocabulary builder, which helps you to learn new words with minimum efforts. U
 ###Download
 The extension can be downloaded from [Chrome Store](https://chrome.google.com/webstore/detail/zinger/fcpibijcomgjkeecnmjkkjfcnfnaldin)
 
-###v0.3 TODO list
-
-- [ ] Add dashboard to view and delete history
-- [x] ~~All open bugs fix~~
-
 ###Contributors
 * Shivam Dixit
 * Ashish Madeti

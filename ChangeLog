@@ -1,3 +1,15 @@
+2015-02-12 Ashish Madeti <ashishmadeti@gmail.com> - v0.3
+    * Added options page
+    * Improved flashcard UI
+    * Improved popup UX
+
+    * Bug Fixes:
+        #44: Extension interfering with Gmail's css
+        #27, #28: Flashcard UI is distorted
+        #41: Change cursor to hand on flashcard
+        #37: Flashcard is contained inside html
+        #24: Font size missing in popup page
+
 2015-02-06 Ashish Madeti <ashishmadeti@gmail.com> - v0.1-beta
     * Improved flashcard's UI
     * Added an option for not saving the word after lookup
