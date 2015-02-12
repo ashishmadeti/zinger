@@ -5,6 +5,12 @@ var otherError = "Some error occurred. Please try later";
 
 
 $(document).ready(function(){
+
+    var optionsUrl = "chrome-extension://" + chrome.runtime.id + "/options.html";
+    $("#historyBtn").click(function(){
+        chrome.tabs.create({url: optionsUrl});
+    });
+
     $("#zingerFreqSlider").slider({
         min: 1,
         max: 30,

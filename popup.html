@@ -3,9 +3,12 @@
     <head>
         <title>Zinger: Learn vocabulary with minimum efforts!</title>
         <style type="text/css">
-            #zingerContent {
+            body {
                 width: 350px;
-                min-height: 250px;
+                height: 320px;
+            }
+
+            #zingerContent {
                 overflow: hidden;
                 font-size: 12px;
             }
@@ -37,6 +40,12 @@
                 background-color: #337ab7;
                 border-color: #2e6da4;
             }
+
+            #historyBtn {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
         </style>
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
     </head>
@@ -58,6 +67,9 @@
                     <p style="float: right;">Low (30 sec)</p>
                     <div style="clear: both;"></div>
                 </div>
+                <br>
+
+                <input class="zingerBtn zingerBtnPrimary" id="historyBtn" value="View History" style="padding: 5px 10px; font-size: 12px;">
             </div>
         </div>
         <script type="text/javascript" src="libs/jquery-2.1.1.min.js"></script>
