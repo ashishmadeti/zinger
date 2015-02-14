@@ -7,10 +7,11 @@ A vocabulary builder, which helps you to learn new words with minimum efforts. U
 The extension can be downloaded from [Chrome Store](https://chrome.google.com/webstore/detail/zinger/fcpibijcomgjkeecnmjkkjfcnfnaldin)
 
 ###v0.4 TODO
-[ ] Improve meaning box UI
-[ ] Improve flashcard UI
-[ ] Add list/grid layout in options page
-[ ] Bug Fixes
+
+- [ ] Improve meaning box UI
+- [ ] Improve flashcard UI
+- [ ] Add list/grid layout in options page
+- [ ] Bug Fixes
 
 ###Contributors
 * Shivam Dixit
