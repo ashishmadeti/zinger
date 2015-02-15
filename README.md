@@ -11,6 +11,7 @@ The extension can be downloaded from [Chrome Store](https://chrome.google.com/we
 - [ ] Improve meaning box UI
 - [ ] Improve flashcard UI
 - [ ] Add list/grid layout in options page
+- [ ] Don't allow card to go out of scope when scrolling
 - [ ] Bug Fixes
 
 ###Contributors
