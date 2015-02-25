@@ -48,8 +48,8 @@ function fetchMeaningCambridge(word, callback) {
             var htmlContent = response.entryContent;
             var output = "";
             $(htmlContent).find(".def").each(function(index){
-                // Don't show more than 3 meanings
-                if (index == 3) {
+                // Don't show more than 2 meanings
+                if (index == 2) {
                     return false;
                 }
 
