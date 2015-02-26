@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'RobotoLight';
+    src: url('../fonts/RobotoLight.eot');
+    src: local('RobotoLight'), url('../fonts/RobotoLight.woff') format('woff'), url('../fonts/RobotoLight.ttf') format('truetype');
+}
+
 .qtip-content {
+    font-family: 'RobotoLight';
     font-size: 14px;
+    line-height: 120%;
+    font-weight: 500;
+}
+
+.qtip-content strong p {
+    color: #8BCF01;
+}
+
+.qtip-blue{
+    background-color: #E5F6FE;
+    border-color: #ADD9ED;
+    color: #5E99BD;
+}
+
+.ui-tooltip, .qtip{
+    max-width: 310px;
+    min-width: 310px;
 }

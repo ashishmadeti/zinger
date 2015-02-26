@@ -32,7 +32,7 @@ function showQtip(selector, e) {
     $(selector).qtip({
         id: 'meaningTooltip',
         content: {
-            text: "Searching for meaning.....",
+            text: "Searching for meaning...",
             button: true
         },
 
@@ -40,9 +40,12 @@ function showQtip(selector, e) {
             target: [e.pageX, e.pageY],
             viewport: $(window),
             adjust: {
-                y: 12,
-                mouse: false
-            }
+                y: 10,
+                mouse: false,
+                method: "flipinvert"
+            },
+            my: "top center",
+            at: "bottom center"
         },
 
         show: {
@@ -50,8 +53,7 @@ function showQtip(selector, e) {
         },
 
         style: {
-            width: "250px",
-            height: "100px"
+            classes: "qtip-blue"
         },
 
         hide: {
@@ -91,9 +93,9 @@ function showQtip(selector, e) {
 
 
 function changeQtipText(newText) {
-    newText += "<br>\
+    newText += "\
     <strong>\
-        <p>Show later: <input type='checkbox' id='zingerShowLater' checked></p>\
+        <p>Show later <input type='checkbox' id='zingerShowLater' checked></p>\
     </strong>";
     $('#qtip-meaningTooltip').qtip('option', 'content.text', newText);
 }
