@@ -40,7 +40,7 @@ function showQtip(selector, e) {
             target: [e.pageX, e.pageY],
             viewport: $(window),
             adjust: {
-                y: 10,
+                y: 12,
                 mouse: false,
                 method: "flipinvert"
             },
