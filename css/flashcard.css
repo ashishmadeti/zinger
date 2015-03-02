@@ -15,12 +15,13 @@
   height: 200px;
   width: 336px;
   left: 40%;
-  border: 1px solid gray;
+  border: 1px solid rgb(173, 217, 237);
   box-shadow: 2px 2px 2px #000;
   -webkit-transform-style: preserve-3d;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   background-color: transparent;
+  font-family: 'RobotoLight';
 }
 
 .zingerFlipped, .zingerBack {
@@ -29,13 +30,13 @@
 }
 
 .zingerFront, .zingerBack {
-  background-color: rgba(255, 255, 168, 0.8);
+  background-color: rgba(229, 246, 254, 0.9);
+  color: rgb(94, 153, 189);
   height: 200px;
   width: 336px;
   position: absolute;
   text-align: center;
   -webkit-backface-visibility: hidden;
-  color: black;
 }
 
 p#zingerCardWord {
@@ -43,14 +44,12 @@ p#zingerCardWord {
   margin-bottom: 4%;
   font-size: 3em;
   text-align: center;
-  color: black;
 }
 
 p#zingerCardMeaning {
   margin-top: 7%;
   font-size: 1em;
   text-align: center;
-  color: black;
   padding-left: 8px;
   padding-right: 8px;
   width: 310px;

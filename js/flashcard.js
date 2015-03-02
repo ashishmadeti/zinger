@@ -13,7 +13,7 @@ $(document).ready(function() {
             <div class="zingerBack">\
                 <p id="zingerCardMeaning"></p>\
                 <div class="zingerRemember">\
-                    <p>Did you remember?</p>\
+                    <p><strong>Did you remember?</strong></p>\
                     <input type="button" value="Yes" id="zingerYes" class="zingerBtn zingerBtnSuccess"/>\
                     <input type="button" value="No" id="zingerNo" class="zingerBtn zingerBtnDanger"/>\
                 </div>\
