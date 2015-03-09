@@ -37,9 +37,11 @@
   position: absolute;
   text-align: center;
   -webkit-backface-visibility: hidden;
+  color: black;
 }
 
 p#zingerCardWord {
+  color: black;
   margin-top: 20%;
   margin-bottom: 4%;
   font-size: 3em;
@@ -47,6 +49,7 @@ p#zingerCardWord {
 }
 
 p#zingerCardMeaning {
+  color: black;
   margin-top: 7%;
   font-size: 1em;
   text-align: center;
@@ -58,6 +61,7 @@ p#zingerCardMeaning {
 }
 
 .zingerRemember p {
+  color: black;
   margin-top: 13px;
   margin-bottom: 10px;
 }
