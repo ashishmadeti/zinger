@@ -38,6 +38,7 @@
   text-align: center;
   -webkit-backface-visibility: hidden;
   color: black;
+  font-family: 'RobotoLight';
 }
 
 p#zingerCardWord {
