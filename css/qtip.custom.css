@@ -5,10 +5,11 @@
 }
 
 .qtip-content {
-    font-family: 'RobotoLight';
+    font-family: 'RobotoLight' !important;
     font-size: 14px;
     line-height: 120%;
     font-weight: 500;
+    margin-top: 5px;
 }
 
 .qtip-content strong p {
